@@ -3,8 +3,9 @@ import {
   withRouter
 } from "react-router-dom"
  class GuardRouter extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
+    this.state={}
   }
 
   render() {

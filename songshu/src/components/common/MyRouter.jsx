@@ -8,7 +8,8 @@ import GuardRouter from "./GuardRouter";
 export default class MyRouter extends Component {
   constructor(props) {
     super(props);
-}
+    this.state={}
+  }
   render() {
     return (
       <div>

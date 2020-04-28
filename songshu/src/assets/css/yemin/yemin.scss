@@ -1,0 +1,31 @@
+//-------- 登录注册公共头部------------
+.header{
+  width: 100%;
+  height: .86rem;
+  line-height:.86rem ;
+  box-sizing: border-box;
+  padding: 0 .1rem;
+  color: #000;
+  font-size: .26rem;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+  .print{
+    width: 10%;
+    float: left;
+    font-size: .34rem;
+  }
+  h2{
+    width: 80%;
+    float: left;
+  }
+}
+// --------------------注册--------------
+.regist{
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top:.87rem;
+  bottom: 0;
+  background: #f9f9f9;
+}

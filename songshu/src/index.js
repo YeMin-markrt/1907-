@@ -7,18 +7,24 @@ import axios from "axios";
 import filters from "./filters";
 import {Provider} from "react-redux"
 import store from "./store"
+import './assets/css/common.scss'
 import {
   BrowserRouter as Router
 } from "react-router-dom"
 
 axios.interceptors.request.use(config=>{
-  config.url = "/api"+config.url;
+  // config.url = "/api"+config.url;
+  console.log(config)
   return config;
 })
 
 axios.interceptors.response.use(({data})=>{
+  console.log("111111"+data)
   return data;
 })
+
+React.Component.prototype.$axios = axios;
+React.Component.prototype.$filters = filters;
 
 ReactDOM.render(
   <React.StrictMode>
