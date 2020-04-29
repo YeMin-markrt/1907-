@@ -14,7 +14,10 @@ import {
 
 axios.interceptors.request.use(config=>{
   // config.url = "/api"+config.url;
+<<<<<<< HEAD
   console.log(config)
+=======
+>>>>>>> 22555a0308c177e9dabe85bd4260c701a258aaf3
   return config;
 })
 
@@ -24,7 +27,10 @@ axios.interceptors.response.use(({data})=>{
 })
 
 React.Component.prototype.$axios = axios;
+<<<<<<< HEAD
 React.Component.prototype.$filters = filters;
+=======
+>>>>>>> 22555a0308c177e9dabe85bd4260c701a258aaf3
 
 ReactDOM.render(
   <React.StrictMode>

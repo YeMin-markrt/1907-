@@ -6,6 +6,9 @@ import OrderList from '../view/OrderList'
 import ProductInfo from '../view/ProductInfo'
 import ProductList from '../view/ProductList'
 import UserSetting from '../view/UserSetting'
+import LoginRetrievePassword from '../view/LoginRetrievePassword'
+import Article from '../view/Article'
+import CollectionList from '../view/CollectionList'
 import Error from '../view/Error'
 
 import Home from '../view/Home'
@@ -34,6 +37,15 @@ export default [
   },{
     path:"/userSetting",
     component:UserSetting
+  },{
+    path:"/article",
+    component:Article
+  },{
+    path:"/loginRetrievePassword",
+    component:LoginRetrievePassword
+  },{
+    path:"/collectionList",
+    component:CollectionList
   },{
     path:"/error",
     component:Error
@@ -65,6 +77,7 @@ export default [
       path:"/user",
       component:User,
       navname:"个人中心",
+      isAuthorization:true,
       iconClass:"iconfont icon-gerenzhongxin"
     }]
   }

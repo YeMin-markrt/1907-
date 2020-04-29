@@ -25,18 +25,19 @@ nav{
   display: flex;
   padding-top: .04rem;
   border-top:1px solid #eeeeee;
-  background-color: linear-gradient(0deg,#b2b2b2,#b2b2b2 50%,transparent 50%);
+  background: #fff;
   position: fixed;
   left: 0;
   bottom: 0;
+  z-index: 999;
   .nav_bottom{
     font-size: .26rem;
   }
   .nav_top{
-    height: .64rem;
-    line-height: .64rem;
+    height: .56rem;
+    line-height: .56rem;
     .iconfont{
-      font-size: .44rem !important;
+      font-size: .4rem !important;
     }
   }
 }

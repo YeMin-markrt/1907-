@@ -7,7 +7,13 @@ import {
     super(props);
     this.state={}
   }
-
+  componentDidMount(){
+    if(this.props.isAuthorization){
+      if(!localStorage.userName){
+          // this.props.history.push("/login");
+      }
+  }
+  }
   render() {
     return (
       <div>

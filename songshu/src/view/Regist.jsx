@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Header from '../components/yemin/Hader'
+import '../assets/css/yemin/yemin.scss'
 export default class Regist extends Component {
   constructor(props) {
     super(props);
@@ -35,6 +36,7 @@ export default class Regist extends Component {
            <p><label htmlFor="">验证码 </label><input type="text" name="" id="" value={userCode}/></p>
            <p><label htmlFor="">密码 </label><input type="text" name="" id="" value={userPwd}/></p>
           </div>
+          <button className="btn_regist">注册</button>
         </div>
       </div>
     )

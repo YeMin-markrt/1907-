@@ -6,7 +6,6 @@ app.use(bodyParser.json());
 
 
 app.get("/refist",async (req,res)=>{
-    console.log(111)
     res.json({
         ok:1,
         msg:"测试"
