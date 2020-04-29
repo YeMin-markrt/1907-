@@ -1,0 +1,8 @@
+
+
+************4.29**************
+王解：
+    1.去掉src->index.js中路由拦截url自动添加api前缀功能
+    2.在src->index.js中加入全局$axios
+    3.在src->view中添加categories.module.scss
+    4.修改Categories.jsx实现头部发现按钮切换页面请求数据功能。
