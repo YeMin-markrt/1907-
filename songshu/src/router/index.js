@@ -17,8 +17,13 @@ import Categories from '../view/Categories'
 import IntegraIIndex from '../view/IntegraIIndex'
 import User from '../view/User'
 import ShoppingCart from '../view/ShoppingCart'
+import CartList from "../view/car/CartList";
 
 export default [
+  {
+    path:'/carList',
+    component:CartList,
+  },
   {
     path:"/login",
     component:Login
@@ -72,13 +77,15 @@ export default [
       path:"/shoppingCart",
       component:ShoppingCart,
       navname:"购物车",
-      iconClass:"iconfont icon-gouwuche"
+      iconClass:"iconfont icon-gouwuche",
     },{
       path:"/user",
       component:User,
       navname:"个人中心",
       isAuthorization:true,
       iconClass:"iconfont icon-gerenzhongxin"
-    }]
+    },
+
+    ]
   }
 ]
