@@ -1,12 +1,51 @@
 import React, {Component} from 'react';
 import style from "../../assets/css/wk/cartList.module.css"
-export default class CartList extends Component {
+import loading from "../../components/common/Loading"
+ class CartList extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            items:[],
+            index:0,
+            isLoading:true,
+            arr:[0,1,2]
+        };
     }
-    componentDidMount() {
+   async addcarList(page=1,index=0,order=5){
+       this.setState({
+               index,
+               isLoading:true
+           })
+       const {data} = await this.$axios({
+           url:"/songshu/mobile/api/product/search",
+           headers:{"appkey":"ef1fc57c13007e33"},
+           params:{
+               param:{"order":order,"pageCount":12,"page":page}
+           }
+       });
+       console.log(data)
+       this.setState({
+           items:data.items,
+           isLoading:false
+       })
+    }
+    componentWillUnmount() {
+        this.setState = ()=>false;
+    }
 
+    async componentDidMount() {
+        this.addcarList()
+       //  const {data} = await this.$axios({
+       //      url:"/songshu/mobile/api/product/search",
+       //      headers:{"appkey":"ef1fc57c13007e33"},
+       //      params:{
+       //          param:{"id":0,"depth":0,"type":1,"page":1}
+       //      }
+       //  });
+       //  console.log(data)
+       // this.setState({
+       //     items:data.items,
+       // })
     }
 
     render() {
@@ -22,45 +61,82 @@ export default class CartList extends Component {
                         <p>搜索</p>
                     </div>
                     <div className={style.list_filter}>
-                        <button>新品</button>
-                        <button>热卖</button>
-                        <button>价格<i></i></button>
+                        <button>
+                            <span className={this.state.index===0?style.w_active:""} onClick={this.addcarList.bind(this,1,0,5)}>新品</span>
+                            <strong style={{display:this.state.index===0?'block':'none'}}></strong>
+                        </button>
+                        <button>
+                            <span className={this.state.index===1?style.w_active:""} onClick={this.addcarList.bind(this,1,1,1)}>热卖</span>
+                            <strong style={{display:this.state.index===1?'block':'none'}}></strong>
+                        </button>
+                        <button>
+                            <span className={this.state.index===2?style.w_active:""} onClick={this.addcarList.bind(this,1,2,3)}>价格</span>
+                            <div>
+                                <i className={this.state.index===2?style.i1:''}></i>
+                                <p ></p>
+                            </div>
+                            <strong style={{display:this.state.index===2?'block':'none'}}></strong>
+                        </button>
                     </div>
                 </div>
-                <div className={style.product_block}>
-                    <div className={style.item_cont}>
-                        <div className={style.item_img}>
-                            <img src={"http://pic10.cdn.3songshu.com:81//assets/upload/product/e497b2e1e50218843a96eb627f456315_380x380.jpg"} alt=""/>
+                {/*主体渲染内容*/}
+                <div  className={style.product_block} >
+                    {
+                        this.state.items.map((v)=>(
+                            <div onClick={()=>{this.props.history.push('/productInfo/'+v.id+'.html')}} style={{display:this.state.index===0?'block':'none'}} className={style.item_cont} key={v.id}>
+                                <div className={style.item_img}>
+                                    <img src={v.pic} alt=""/>
+                                </div>
+                                <p>{v.name}</p>
+                                <div className={style.item_price}>
+                                    <p>
+                                        <span>{v.salesPrice.value}</span>
+                                        <i>{v.marketPrice.value}</i>
+                                    </p>
+                                    <strong  className={"iconfont icon-gouwuche" }></strong>
+                                </div>
+                            </div>
+                        ))
 
-                        </div>
-                        <p>美栗甘栗仁 100gx2袋</p>
-                        <div className={style.item_price}>
-                            <p ><span>19.90</span><i>50.00</i></p>
-                            <strong className={"iconfont icon-gouwuche" }></strong>
-                        </div>
-                    </div>
-                    <div className={style.item_cont}>
-                        <div className={style.item_img}>
-                            <img src={"http://pic10.cdn.3songshu.com:81//assets/upload/product/e497b2e1e50218843a96eb627f456315_380x380.jpg"} alt=""/>
+                    }
+                    {
 
-                        </div>
-                        <p>美栗甘栗仁 100gx2袋</p>
-                        <div className={style.item_price}>
-                            <p ><span>19.90</span><i>50.00</i></p>
-                            <strong className={"iconfont icon-gouwuche" }></strong>
-                        </div>
-                    </div>
-                    <div className={style.item_cont}>
-                        <div className={style.item_img}>
-                            <img src={"http://pic10.cdn.3songshu.com:81//assets/upload/product/e497b2e1e50218843a96eb627f456315_380x380.jpg"} alt=""/>
+                        this.state.items.map(v=>(
+                            <div style={{display:this.state.index===1?'block':'none'}} className={style.item_cont} key={v.id}>
+                                <div className={style.item_img}>
+                                    <img src={v.pic} alt=""/>
+                                </div>
+                                <p>{v.name}</p>
+                                <div className={style.item_price}>
+                                    <p>
+                                        <span>{v.salesPrice.value}</span>
+                                        <i>{v.marketPrice.value}</i>
+                                    </p>
+                                    <strong className={"iconfont icon-gouwuche" }></strong>
+                                </div>
+                            </div>
+                        ))
 
-                        </div>
-                        <p>美栗甘栗仁 100gx2袋</p>
-                        <div className={style.item_price}>
-                            <p ><span>19.90</span><i>50.00</i></p>
-                            <strong className={"iconfont icon-gouwuche" }></strong>
-                        </div>
-                    </div>
+                    }
+                    {
+
+                        this.state.items.map(v=>(
+                            <div style={{display:this.state.index===2?'block':'none'}} className={style.item_cont} key={v.id}>
+                                <div className={style.item_img}>
+                                    <img src={v.pic} alt=""/>
+                                </div>
+                                <p>{v.name}</p>
+                                <div className={style.item_price}>
+                                    <p>
+                                        <span>{v.salesPrice.value}</span>
+                                        <i>{v.marketPrice.value}</i>
+                                    </p>
+                                    <strong className={"iconfont icon-gouwuche" }></strong>
+                                </div>
+                            </div>
+                        ))
+
+                    }
                 </div>
 
                 <div className={style.button_car}>
@@ -80,3 +156,4 @@ export default class CartList extends Component {
         )
     }
 }
+export default loading(CartList)
