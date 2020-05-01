@@ -60,6 +60,14 @@
         color: #999;
         font-size: .28rem;
       }
+      .my_code{
+        display: inline-block;
+        float: right;
+        line-height: .88rem;
+        margin-top: -.7rem;
+        color: #999;
+        font-size: .28rem;
+      }
     }
   }
   .btn_regist{
@@ -158,4 +166,26 @@
     float: right;
   }
 }
+}
+
+.tip{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top:0;
+  bottom:0;
+  background: rgba(68, 68, 68,.7);
+  .usertip{
+    display: inline-block;
+    width: 50%;
+    height: 2rem;
+    color: #fff;
+    position: absolute;
+    font-size: .3rem;
+    left: 0;
+    right: 0;
+    top:0;
+    bottom:0;
+    margin: auto;
+  }
 }

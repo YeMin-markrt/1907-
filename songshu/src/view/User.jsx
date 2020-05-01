@@ -9,7 +9,6 @@ export default class User extends Component {
     }
   }
   componentDidMount(){
-    localStorage.setItem("userName",15684176127);
     if(localStorage.userName){
       let tempname="";
       let username=localStorage.userName.split("").splice(0,3);

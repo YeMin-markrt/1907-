@@ -1,5 +1,11 @@
 const currency = function (v) {
-  return "$"+v.toFixed(2);
+  console.log(v)
+  if(typeof(v)=='undefined'){
+    return v
+  }else{
+    var s=Number(v)
+    return s.toFixed(2)
+  }
 }
 const date = function (v){
   if(v){

@@ -20,7 +20,7 @@ axios.interceptors.request.use(config=>{
 })
 
 axios.interceptors.response.use(({data})=>{
-  console.log("111111"+data)
+  // console.log("111111"+data)
   return data;
 })
 
