@@ -12,3 +12,8 @@
 1.修改了shopcart页面
 2.增加css文件夹
 3.增加了css文件，增加cartList页面。更新了阿里图标链接，添加img
+
+************5.1**************
+王可：
+1.修改productInfo,增加了img图片，增加了loading组件，增加了css文件productInfo.module，
+修改日志
