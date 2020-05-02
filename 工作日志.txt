@@ -17,3 +17,21 @@
 王可：
 1.修改productInfo,增加了img图片，增加了loading组件，增加了css文件productInfo.module，
 修改日志
+***********5.3*************
+王可
+
+改动了productInfo,cartList,ShoppingCart,css文件，
+修改路由 /productInfo
+注意：跳转商品详情需要两个参数，goodsId，productId,
+按照  /productInfo/:goodsId/:productId.html   （goodsId是数据里的defaultGoodsId）
+***
+数据库文档
+carList集合
+用户名：userName
+价格salesPrice
+goodsId,
+productId，
+购买数量buyNum,
+图片:pic，
+选中：isChecked:true
+修改api /server，增加db中更新多条语句

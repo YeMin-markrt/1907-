@@ -1,118 +1,177 @@
 import React, { Component } from 'react'
 import style from "../assets/css/wk/productInfo.module.css"
-export default class ProductInfo extends Component {
+import loading from "../components/common/Loading"
+class ProductInfo extends Component {
+  constructor() {
+    super();
+    this.state={
+      name:"",
+      pics:[],
+      saleCount:null,
+      marketPrice:null,
+      salesPrice:null,
+      goodsMatch:[],
+      isLoading:true,
+      //评价
+      eval:[],
+    }
+  }
+
+  async componentDidMount() {
+    this.setState({
+      isLoading:true
+    })
+    const goodsId = this.props.match.params.goodsId;
+    const productId = this.props.match.params.productId;
+    //商品详情
+    const {data} = await this.$axios({
+      url:"/songshu/mobile/api/product/baseInfo",
+      headers:{"appkey":"ef1fc57c13007e33"},
+      params:{
+        param: {"goodsId":goodsId,"productId":productId}
+      }
+    })
+    // console.log(data)
+    this.setState({
+      name:data.name,
+      pics:data.pics,
+      isLoading:false
+    })
+    // console.log(this.props.match.params)
+    // 商品价格销量
+    const res = await this.$axios({
+      url:"/songshu/mobile/api/product/getGoods",
+      headers:{"appkey":"ef1fc57c13007e33"},
+      params:{
+        param: {"goodsId":goodsId,"productId":productId}
+      }
+    })
+    // console.log(res.data)
+    this.setState({
+      saleCount:res.data.saleCount,
+      marketPrice:res.data.marketPrice.value,
+      salesPrice:res.data.salesPrice.value
+    })
+
+    //松鼠推荐
+    const res2 = await this.$axios({
+      url:"/songshu/mobile/api/product/getGoodsMatch",
+      headers:{"appkey":"ef1fc57c13007e33"},
+      params:{
+        param: {"goodsId":goodsId,"productId":productId}
+      }
+    })
+    // console.log(res2)
+    this.setState({
+      goodsMatch:res2.data,
+    })
+    //评价
+    const res3 = await this.$axios({
+      url:"/songshu/mobile/api/remark/list",
+      headers:{"appkey":"ef1fc57c13007e33"},
+      params:{
+        param: {"type":0,"productId":productId,"page":1,"pageCount":3}
+      }
+    })
+    // console.log(res3.data.items)
+    if(res3.data.items){
+      this.setState({
+        eval:res3.data.items,
+      })
+    }else{
+      this.setState({
+        eval:[],
+
+      })
+    }
+
+  }
+
   render() {
     return (
-      <>
-        <div className={style.product_all}>
-          <div className={style.w_header_top}>
+        <>
+          <div className={style.product_all}>
+            <div className={style.w_header_top}>
             <span onClick={()=>{this.props.history.go(-1)}} className={" iconfont icon-zuo"} >
             </span>
-            <p>商品详情</p>
-            <span></span>
-          </div>
-          <div className={style.product_info}>
-            <div className={style.slider_box}>
-              <img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/e363b543d4760f44deafbc5a1b9a5873_800x800.jpg" alt=""/>
-              <div></div>
+              <p>商品详情</p>
+              <span></span>
             </div>
-            <div className={style.info_box}>
-              <p>抖胃味_猪尾香辣味120g</p>
-              <div>
-                <span>22.90 <i>60.00</i></span>
-                <strong>总销量&nbsp;&nbsp;0</strong>
+            <div className={style.product_info}>
+              <div className={style.slider_box}>
+                <img src={this.state.pics[0]} alt=""/>
+                <div></div>
+              </div>
+              <div className={style.info_box}>
+                <p>{this.state.name}</p>
+                <div>
+                  <span>{this.state.salesPrice}<i>{this.state.marketPrice}</i></span>
+                  <strong>总销量&nbsp;&nbsp;{this.state.saleCount}</strong>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      {/*  松鼠推荐*/}
-      <div className={style.product_tui}>
-          <p className={style.recommend_title}>松鼠推荐</p>
-        <div className={style.recommendGoods}>
-          <ul className={style.item_cont}>
-            <li>
-              <div className={style.item_img}>
-                <img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/587e6517ebd7e49094045868e2d0a439_380x380.jpg" alt=""/>
+          {/*评价*/}
+          <div style={{display:this.state.eval.length>0?'block':'none'}} className={style.comment_lsit}>
+
+            <div  className={style.comment_top} >
+              <p>主人说</p>
+              <div className={style.comment_right } >
+                <p>好评率</p>
+                <p>99%</p>
+                <span className={"iconfont icon-zuo1"}></span>
               </div>
-              <p className={style.item_title}>牛奶冻（黑米味）210g</p>
-              <p className={style.item_title_ng}>Q弹mix黑米泡泡酱</p>
-              <p className={style.item_price}><span>4.90</span><i>15.00</i></p>
-            </li>
-            <li>
-              <div className={style.item_img}>
-                <img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/587e6517ebd7e49094045868e2d0a439_380x380.jpg" alt=""/>
-              </div>
-              <p className={style.item_title}>牛奶冻（黑米味）210g</p>
-              <p className={style.item_title_ng}>Q弹mix黑米泡泡酱</p>
-              <p className={style.item_price}><span>4.90</span><i>15.00</i></p>
-            </li>
-            <li>
-              <div className={style.item_img}>
-                <img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/587e6517ebd7e49094045868e2d0a439_380x380.jpg" alt=""/>
-              </div>
-              <p className={style.item_title}>牛奶冻（黑米味）210g</p>
-              <p className={style.item_title_ng}>Q弹mix黑米泡泡酱</p>
-              <p className={style.item_price}><span>4.90</span><i>15.00</i></p>
-            </li>
-            <li>
-              <div className={style.item_img}>
-                <img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/587e6517ebd7e49094045868e2d0a439_380x380.jpg" alt=""/>
-              </div>
-              <p className={style.item_title}>牛奶冻（黑米味）210g</p>
-              <p className={style.item_title_ng}>Q弹mix黑米泡泡酱</p>
-              <p className={style.item_price}><span>4.90</span><i>15.00</i></p>
-            </li>
-            <li>
-              <div className={style.item_img}>
-                <img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/587e6517ebd7e49094045868e2d0a439_380x380.jpg" alt=""/>
-              </div>
-              <p className={style.item_title}>牛奶冻（黑米味）210g</p>
-              <p className={style.item_title_ng}>Q弹mix黑米泡泡酱</p>
-              <p className={style.item_price}><span>4.90</span><i>15.00</i></p>
-            </li>
-            <li>
-              <div className={style.item_img}>
-                <img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/587e6517ebd7e49094045868e2d0a439_380x380.jpg" alt=""/>
-              </div>
-              <p className={style.item_title}>牛奶冻（黑米味）210g</p>
-              <p className={style.item_title_ng}>Q弹mix黑米泡泡酱</p>
-              <p className={style.item_price}><span>4.90</span><i>15.00</i></p>
-            </li>
-            <li>
-              <div className={style.item_img}>
-                <img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/587e6517ebd7e49094045868e2d0a439_380x380.jpg" alt=""/>
-              </div>
-              <p className={style.item_title}>牛奶冻（黑米味）210g</p>
-              <p className={style.item_title_ng}>Q弹mix黑米泡泡酱</p>
-              <p className={style.item_price}><span>4.90</span><i>15.00</i></p>
-            </li>
-            <li>
-              <div className={style.item_img}>
-                <img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/587e6517ebd7e49094045868e2d0a439_380x380.jpg" alt=""/>
-              </div>
-              <p className={style.item_title}>牛奶冻（黑米味）210g</p>
-              <p className={style.item_title_ng}>Q弹mix黑米泡泡酱</p>
-              <p className={style.item_price}><span>4.90</span><i>15.00</i></p>
-            </li>
-            <li>
-              <div className={style.item_img}>
-                <img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/587e6517ebd7e49094045868e2d0a439_380x380.jpg" alt=""/>
-              </div>
-              <p className={style.item_title}>牛奶冻（黑米味）210g</p>
-              <p className={style.item_title_ng}>Q弹mix黑米泡泡酱</p>
-              <p className={style.item_price}><span>4.90</span><i>15.00</i></p>
-            </li>
-            <li>
-              <div className={style.item_img}>
-                <img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/587e6517ebd7e49094045868e2d0a439_380x380.jpg" alt=""/>
-              </div>
-              <p className={style.item_title}>牛奶冻（黑米味）210g</p>
-              <p className={style.item_title_ng}>Q弹mix黑米泡泡酱</p>
-              <p className={style.item_price}><span>4.90</span><i>15.00</i></p>
-            </li>
-          </ul>
-        </div>
-      </div>
+            </div>
+            <div className={style.info_total}>
+              <ul>
+                {
+
+                  this.state.eval.map(v=>(
+                      <li key={v.id}>
+                        <div className={style.info_top}>
+                          <img src={v.userPic} alt=""/>
+                          <div className={style.info_row}>
+                            <div className={style.info_use}>
+                              <p>{v.userName}</p>
+                              <span>{v.time}</span>
+                            </div>
+                            <div>
+                              <i className={"iconfont icon-xingxing1"}></i>
+                              <i className={"iconfont icon-xingxing1"}></i>
+                              <i className={"iconfont icon-xingxing1"}></i>
+                              <i className={"iconfont icon-xingxing1"}></i>
+                              <i className={"iconfont icon-xingxing1"}></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p className={style.info_p}>{v.content}</p>
+                      </li>
+                  ))
+                }
+
+              </ul>
+            </div>
+          </div>
+          {/*  松鼠推荐*/}
+          <div className={style.product_tui}>
+            <p className={style.recommend_title}>松鼠推荐</p>
+            <div className={style.recommendGoods}>
+              <ul className={style.item_cont}>
+                {
+                  this.state.goodsMatch.map(v=>(
+                      <li key={v.id}>
+                        <div className={style.item_img}>
+                          <img src={v.thumbUrl} alt=""/>
+                        </div>
+                        <p className={style.item_title}>{v.productName}</p>
+                        <p className={style.item_title_ng}>{v.alias}</p>
+                        <p className={style.item_price}><span>{v.matchPrice}</span><i>{v.marketPrice}</i></p>
+                      </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
           {/*底部导航*/}
           <div>
             <ul className={style.footer_bar}>
@@ -133,7 +192,8 @@ export default class ProductInfo extends Component {
             </ul>
           </div>
 
-      </>
+        </>
     )
   }
 }
+export default loading(ProductInfo)
