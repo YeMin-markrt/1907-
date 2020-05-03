@@ -123,9 +123,8 @@ app.get("/joinCar", async (req, res) => {
         msg: "加入购物车成功",
         carList,
     })
+})
 
-<<<<<<< HEAD
-//获得商品信息
 app.get("/remList", async (req, res) => {
     const remList = await db.find("remList", {
         sort: {
@@ -147,9 +146,6 @@ app.get("/ProductInfo/:id", async (req, res) => {
     })
 })
 
-app.listen(8089,function () {
-=======
-})
 //获取购物车数据
 app.get('/getCar', async (req, res) => {
     const carInfo = await db.find("carList")
@@ -202,6 +198,5 @@ app.get("/changeAllIsChecked", async (req, res) => {
     })
 })
 app.listen(8089, function () {
->>>>>>> 03a1ed6889bc3408e1b41663dff84b5d73a5604a
     console.log("success");
 })
