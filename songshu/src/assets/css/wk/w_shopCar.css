@@ -105,8 +105,10 @@ html{
     background: #fff;
     border: 0.02rem solid #ddd;
     border-radius: 0.06rem;
-
-
+}
+.w_inp .button1{
+    background: #eee!important;
+    color: #ccc!important;
 }
 .w_inp .button:nth-child(1){
     border-radius: 0.06rem 0 0 0.06rem;

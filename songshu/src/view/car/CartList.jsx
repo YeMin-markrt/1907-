@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import style from "../../assets/css/wk/cartList.module.css"
 import loading from "../../components/common/Loading"
 import noGoods from "../../assets/img/noGoods.png"
-class CartList extends Component {
+ class CartList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,73 +13,73 @@ class CartList extends Component {
             buyNum:localStorage.buyNum||null
         };
     }
-    async addcarList(page=1,index=0,order=5,keyword=""){
-        this.setState({
-            index,
-            isLoading:true
-        })
-        const {data} = await this.$axios({
-            url:"/songshu/mobile/api/product/search",
-            headers:{"appkey":"ef1fc57c13007e33"},
-            params:{
-                param:{"keyword":keyword,"order":order,"pageCount":12,"page":page}
-            }
-        });
-        // console.log(data)
-        this.setState({
-            items:data.items,
-            isLoading:false
-        })
+   async addcarList(page=1,index=0,order=5,keyword=""){
+       this.setState({
+               index,
+               isLoading:true
+           })
+       const {data} = await this.$axios({
+           url:"/songshu/mobile/api/product/search",
+           headers:{"appkey":"ef1fc57c13007e33"},
+           params:{
+               param:{"keyword":keyword,"order":order,"pageCount":12,"page":page}
+           }
+       });
+       // console.log(data)
+       this.setState({
+           items:data.items,
+           isLoading:false
+       })
     }
     componentWillUnmount() {
         this.setState = ()=>false;
     }
     //点击搜索
-    getSearch(){
-        // console.log(this.state.keyword.value)
-        this.addcarList(1,0,5,this.state.keyword.value)
-    }
-    //回到顶部
-    handleScrollTop = () => {
-        let timer = null;
-        cancelAnimationFrame(timer)
-        timer = requestAnimationFrame(function fn () {
-            const osTop = document.body.scrollTop || document.documentElement.scrollTop;
-            if (osTop > 0) {
-                window.scrollTo(0, osTop - 90);
-                timer = requestAnimationFrame(fn);
-            } else {
-                cancelAnimationFrame(timer)
-            }
-        })
-    }
+     getSearch(){
+         // console.log(this.state.keyword.value)
+         this.addcarList(1,0,5,this.state.keyword.value)
+     }
+     //回到顶部
+     handleScrollTop = () => {
+         let timer = null;
+         cancelAnimationFrame(timer)
+         timer = requestAnimationFrame(function fn () {
+             const osTop = document.body.scrollTop || document.documentElement.scrollTop;
+             if (osTop > 0) {
+                 window.scrollTo(0, osTop - 90);
+                 timer = requestAnimationFrame(fn);
+             } else {
+                 cancelAnimationFrame(timer)
+             }
+         })
+     }
     async componentDidMount() {
         this.addcarList(1,0,5,"")
-        console.log(this.state.buyNum)
+
     }
     //加入购物车
-    async addGoods(goodsAll,e){
-        e.stopPropagation();
+     async addGoods(goodsAll,e){
+         e.stopPropagation();
         const goods = await this.$axios.get("/api/joinCar",{
             params:{
                 goodsAll,
                 userName:localStorage.userName
             }
         })
-        console.log(goods)
-        if(goods.ok===1){
-            let total = 0;
-            goods.carList.forEach(v=>{
-                total+= v.buyNum
-            })
-            this.setState({
-                buyNum:total
-            })
+         console.log(goods)
+         if(goods.ok===1){
+             let total = 0;
+             goods.carList.forEach(v=>{
+                 total+= v.buyNum
+             })
+             this.setState({
+                 buyNum:total
+             })
             localStorage.buyNum = total;
-        }else{
-            alert("库存不足")
-        }
-    }
+         }else{
+             alert("库存不足")
+         }
+     }
 
     render() {
         return (
@@ -176,11 +176,12 @@ class CartList extends Component {
 
                 <div className={style.button_car} onClick={()=>{this.props.history.push('/shoppingCart')}} >
                     <span className={"iconfont icon-gouwuche" }></span>
+
                     <i>{this.state.buyNum}</i>
                 </div>
                 <div className={style.button_btn}>
                     <div className={style.button_top} onClick={this.handleScrollTop.bind(this)}>
-                        <p className={"iconfont icon-arrow-top"}></p>
+                    <p className={"iconfont icon-arrow-top"}></p>
                         <p >顶部</p>
                     </div>
                     <div className={style.button_section}>

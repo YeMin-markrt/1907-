@@ -220,6 +220,7 @@
 }
 .footer_bar li{
     float: left;
+    position: relative;
 }
 .footer_bar li:nth-child(1){
     height: 1rem;
@@ -264,4 +265,16 @@
     color: #ffffff;
     border: 1px solid rgb(119,188,31);
     border-radius: 0.1rem;
+}
+.footer_bar>li>span>i{
+    display: block;
+    font: inherit;
+    font-size: 0.24rem;
+    background: #ff9601;
+    color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0.3rem;
 }

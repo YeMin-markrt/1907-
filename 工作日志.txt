@@ -17,9 +17,7 @@
 王可：
 1.修改productInfo,增加了img图片，增加了loading组件，增加了css文件productInfo.module，
 修改日志
-<<<<<<< HEAD
 
-=======
 ***********5.3*************
 王可
 
@@ -30,12 +28,17 @@
 ***
 数据库文档
 carList集合
-用户名：userName
-价格salesPrice
-goodsId,
-productId，
+用户名：userName，
+name,
+defaultGoodsId,
+id,
+salesPrice:salesPrice:{value:'123'},
+pic,
 购买数量buyNum,
-图片:pic，
 选中：isChecked:true
 修改api /server，增加db中更新多条语句
->>>>>>> 03a1ed6889bc3408e1b41663dff84b5d73a5604a
+
+5-4
+修改收藏页面。增加购物车的功能。增加api接口
+增加collect集合 储存收藏
+
