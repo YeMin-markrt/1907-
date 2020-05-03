@@ -73,6 +73,16 @@ module.exports = {
         })
 
     },
+    //更新多条信息
+    async updateMany(collName,whereObj,upObj){
+        const db = await _connect();
+        return new Promise(((resolve, reject) => {
+            db.collection(collName).updateMany(whereObj,upObj,(err,result)=>{
+                if (err) reject("更新失败")
+                else resolve("更新成功")
+            })
+        }))
+    },
     // 查找多条
     async find(collName,obj={},cb){
         // 解构赋值。

@@ -38,11 +38,18 @@ html{
 .w_rule p:nth-child(2) span{
     color: #000;
 }
+.w_item_count{
+    width: 100%;
+    min-height: 120vh;
+
+}
 .w_item_common{
+    width: 100%;
     display: flex;
     align-items: center;
     background: #fff;
     min-height: 1.8rem;
+    margin-bottom: 0.1rem;
 }
 .w_item_common>div>img{
     width: 0.34rem;
@@ -69,6 +76,8 @@ html{
 .w_item_content .w_item2{
     min-height: 1.8rem;
     overflow: hidden;
+    position: relative;
+
 }
 .w_item2 p{
     text-align: left;
@@ -85,6 +94,9 @@ html{
 }
 .w_item2 .w_inp{
     overflow: hidden;
+    position: absolute;
+    left: 0.22rem;
+    bottom: 0.12rem;
 }
 .w_inp .button{
     width: 0.58rem;
@@ -121,7 +133,7 @@ html{
     align-items: center;
     /*padding: 0.1rem;*/
     position: fixed;
-    bottom: 0.98rem;
+    bottom: 0.95rem;
 }
 .w_footer_bar>div>img{
     width: 0.34rem;
@@ -129,7 +141,7 @@ html{
     margin: 0 0.1rem;
 }
 .w_foot_right {
-    margin-left: 2.1rem;
+    margin-left:1.5rem;
 }
 .w_foot_right  .w_foot_total{
 }
@@ -157,4 +169,12 @@ html{
     line-height: 0.9rem;
     text-align: center;
 
+}
+.w_foot_pay2{
+    width: 2.02rem;
+    height: 0.9rem;
+    background: rgb(119,188,31);
+    color: #eee;
+    line-height: 0.9rem;
+    text-align: center;
 }

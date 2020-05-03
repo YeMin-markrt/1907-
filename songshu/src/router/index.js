@@ -37,7 +37,7 @@ export default [
     path:"/orderList",
     component:OrderList
   },{
-    path:"/productInfo/:id.html",
+    path:"/productInfo/:goodsId/:productId.html",
     component:ProductInfo
   },{
     path:"/productList",
