@@ -17,3 +17,4 @@
 王可：
 1.修改productInfo,增加了img图片，增加了loading组件，增加了css文件productInfo.module，
 修改日志
+

@@ -78,6 +78,28 @@ app.post("/upPwd",async(req,res)=>{
     }
 })
 
+//获得商品信息
+app.get("/remList", async (req, res) => {
+    const remList = await db.find("remList", {
+        sort: {
+            price: -1
+        }
+    })
+    res.json({
+        ok: 1,
+        remList
+    })
+})
+//根据商品id获取商品详情
+app.get("/ProductInfo/:id", async (req, res) => {
+    const id = req.params.id;
+    const ProductInfo = await db.findOneById("remList", id);
+    res.json({
+        ok: 1,
+        ProductInfo
+    })
+})
+
 app.listen(8089,function () {
     console.log("success");
 })

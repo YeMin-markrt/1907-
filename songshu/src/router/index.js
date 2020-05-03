@@ -18,6 +18,9 @@ import IntegraIIndex from '../view/IntegraIIndex'
 import User from '../view/User'
 import ShoppingCart from '../view/ShoppingCart'
 import CartList from "../view/car/CartList";
+import Header from "../components/fangdan/header";
+
+
 
 export default [
   {
@@ -62,7 +65,14 @@ export default [
       component:Index,
       exact:true,
       navname:"首页",
-      iconClass:"iconfont icon-shouye"
+      iconClass:"iconfont icon-shouye",
+      childrends:[
+        {
+          path:"/",
+          component:Header,
+          exact:true
+        }
+      ]
     },{
       path:"/categories",
       component:Categories,

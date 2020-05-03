@@ -8,9 +8,10 @@ import {
     this.state={}
   }
   componentDidMount(){
+      // console.log(this.props.childrends)
     if(this.props.isAuthorization){
       if(!localStorage.userName){
-          // this.props.history.push("/login");
+          this.props.history.push("/login");
       }
   }
   }
@@ -22,4 +23,4 @@ import {
     )
   }
 }
-export default withRouter(GuardRouter)
+export default withRouter(GuardRouter);

@@ -1,7 +1,23 @@
 import React, { Component } from 'react'
 import style from "../assets/css/wk/productInfo.module.css"
 export default class ProductInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state={
+      ProductInfo:{}
+    }
+  }
+
+  async componentDidMount(){
+    const {ProductInfo} = await this.$axios.get("/api/ProductInfo/" + this.props.match.params.id)
+    // console.log(this.props.match.params)
+    console.log(ProductInfo)
+    this.setState({
+      ProductInfo
+    })
+  }
   render() {
+    const {name,price,oldprice,sell,_id} = this.state.ProductInfo
     return (
       <>
         <div className={style.product_all}>
@@ -13,14 +29,14 @@ export default class ProductInfo extends Component {
           </div>
           <div className={style.product_info}>
             <div className={style.slider_box}>
-              <img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/e363b543d4760f44deafbc5a1b9a5873_800x800.jpg" alt=""/>
+              {/*<img src="http://pic10.cdn.3songshu.com:81//assets/upload/product/e363b543d4760f44deafbc5a1b9a5873_800x800.jpg" alt=""/>*/}
               <div></div>
             </div>
             <div className={style.info_box}>
-              <p>抖胃味_猪尾香辣味120g</p>
+              <p>{name}</p>
               <div>
-                <span>22.90 <i>60.00</i></span>
-                <strong>总销量&nbsp;&nbsp;0</strong>
+                <span>{price} <i>{oldprice}</i></span>
+                <strong>总销量{sell}</strong>
               </div>
             </div>
           </div>
