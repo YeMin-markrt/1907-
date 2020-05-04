@@ -266,7 +266,7 @@ app.post("/joinCollect",async(req,res)=>{
     if(goodsInfo){
         await db.deleteOneById("collect",goodsInfo._id);
         res.json({
-            ok:1,
+            ok:-1,
             msg:"取消收藏成功"
         })
     }else{

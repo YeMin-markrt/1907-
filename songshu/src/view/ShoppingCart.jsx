@@ -4,119 +4,36 @@ import yes from "../assets/img/wk/true.png";
 import no from "../assets/img/wk/false.png";
 import noGoods from "../assets/img/noGoods.png"
 import loading from "../components/common/Loading"
+import getCartList from "../store/actionCreator/wk/shoppingCar/index"
+import filters from "../filters/index"
+import {
+    connect
+} from "react-redux"
 class ShoppingCart extends Component {
 
     constructor() {
         super();
         this.isChecked = true;
         this.state = {
-            carInfo: [],
-            isLoading: true
+            divBlock:"none",
         };
-
     };
-    //更改选中状态
-    async changeIsChecked(carId, e) {
-        e.stopPropagation()
-        const data2 = await this.$axios.get("/api/changeIsChecked", {
-            params: {
-                carId
-            }
-        })
 
-        if (data2.ok === 1) {
-            this.setState({
-                carInfo: data2.carList
-            })
-        } else {
-            alert("网络错误")
-        }
-    }
-    //全选和反选
-    async changeAllIsChecked() {
-        const data3 = await this.$axios.get("/api/changeAllIsChecked", {
-            params: {
-                userName: localStorage.userName,
-                isChecked: !this.isChecked
-            }
-        })
-        if (data3.ok === 1) {
-            this.setState({
-                carInfo: data3.carList
-            })
-        }
-
-    }
-    //数量加
-    async addGoods(goodsAll, e) {
-        e.stopPropagation();
-        const goods = await this.$axios.get("/api/joinCar", {
-            params: {
-                goodsAll,
-                userName: localStorage.userName
-            }
-        })
-        // console.log(goods)
-        if (goods.ok === 1) {
-            let total = 0;
-            goods.carList.forEach(v => {
-                total += v.buyNum
-            })
-            this.setState({
-                buyNum: total
-            })
-            localStorage.buyNum = total;
-            this.getCar()
-        } else {
-            alert("库存不足")
-        }
-    }
-    //数量减
-    async removeCar(defaultGoodsId, e) {
-        e.stopPropagation()
-        const data = await this.$axios.get("/api/moveCar", {
-            params: {
-                userName: localStorage.userName,
-                defaultGoodsId
-            }
-        })
-        if (data.ok === 1) {
-            this.setState({
-                carInfo: data.carList
-            })
-        }
-    }
-    async getCar() {
-        this.setState({
-            isLoading: true
-        })
-        const data = await this.$axios.get("/api/getCar")
-        // console.log(data)
-        if (data.ok === 1) {
-            this.setState({
-                carInfo: data.carInfo,
-                isLoading: false
-            })
-        }
-    }
-    async componentDidMount() {
-        this.getCar()
-
+    componentDidMount() {
+        this.props.getCart.call(this)
+        // console.log(this.props)
 
     }
     componentWillUnmount() {
-        if (this.state.carInfo.length <= 0) {
+        if (this.props.carInfo.length <= 0) {
             localStorage.removeItem("buyNum")
         }
     }
 
-
     render() {
-        const { carInfo } = this.state;
-
         let sumPrice = 0;
         this.isChecked = true;
-        const carListArr = carInfo.map(v => {
+        const carListArr = this.props.carInfo.map(v => {
             if (v.isChecked) {
                 sumPrice += v.buyNum * v.salesPrice.value;
             } else {
@@ -126,7 +43,7 @@ class ShoppingCart extends Component {
 
                 <div onClick={() => { this.props.history.push('/productInfo/' + v.defaultGoodsId + "/" + v.id + '.html') }} className={"w_item_common"} key={v._id}>
                     <div>
-                        <img onClick={this.changeIsChecked.bind(this, v._id)} src={(v.isChecked ? yes : no)} alt="" />
+                        <img onClick={this.props.changeChecked.bind(this, v._id)} src={(v.isChecked ? yes : no)} alt="" />
                     </div>
                     <div className={"w_item_content"}>
                         <div className={"imgbox"}>
@@ -134,11 +51,11 @@ class ShoppingCart extends Component {
                         </div>
                         <div className={"w_item2"}>
                             <p>{v.name}</p>
-                            <p>{v.salesPrice.value}</p>
+                            <p>{this.$filters.currency(v.salesPrice.value/1)}</p>
                             <div className={"w_inp"}>
-                                <input onClick={this.removeCar.bind(this, v.defaultGoodsId)} className={v.buyNum <= 1 ? "button button1" : "button"} type="button" value={"-"} />
+                                <input onClick={this.props.removeGoods.bind(this, v.defaultGoodsId)} className={v.buyNum <= 1 ? "button button1" : "button"} type="button" value={"-"} />
                                 <input type="text" value={v.buyNum} onClick={(e) => e.stopPropagation()} readOnly />
-                                <input onClick={this.addGoods.bind(this, v)} className={"button"} type="button" value={"+"} />
+                                <input onClick={this.props.addGoods.bind(this, v)} className={"button"} type="button" value={"+"} />
 
                             </div>
                         </div>
@@ -162,7 +79,7 @@ class ShoppingCart extends Component {
                     }
                     {
                         39.00 - sumPrice <= 0 ?
-                            (<p style={{ color: '#262626' }}>已免运费
+                            (<p onClick={()=>this.setState({divBlock:'block'})} style={{ color: '#262626' }}>已免运费
                                 <span className={"iconfont icon-gantanhao"}></span>
                             </p>) :
                             (<p onClick={() => { this.props.history.push('/carList') }}>
@@ -174,15 +91,21 @@ class ShoppingCart extends Component {
                 </div>
                 <div className={"w_item_count"}>
                     {
-                        this.state.carInfo.length > 0 ? carListArr : <img src={noGoods} alt="" />
+                        this.props.carInfo.length > 0 ? carListArr : <img src={noGoods} alt="" />
                     }
                 </div>
-
-
+                {/*免运费*/}
+                <div className={"w_prop"} style={{display:this.state.divBlock}}>
+                    <div className={"w_prop_show"}>
+                        <p>运费规则说明</p>
+                        <p>运费与配送地址相关，最终运费以填写结算页为准</p>
+                        <p><button onClick={()=>this.setState({divBlock:'none'})}>我知道了</button></p>
+                    </div>
+                </div>
                 <div className={"w_footer_bar"}>
                     <div>
                         {
-                            this.state.carInfo.length > 0 ? <img onClick={this.changeAllIsChecked.bind(this)} src={this.isChecked ? yes : no} alt="" /> : <img src={no} alt="" />
+                            this.props.carInfo.length > 0 ? <img onClick={this.props.changeAllChecked.bind(this)} src={this.isChecked ? yes : no} alt="" /> : <img src={no} alt="" />
                         }
                         全选
                     </div>
@@ -210,4 +133,33 @@ class ShoppingCart extends Component {
         )
     }
 }
-export default loading(ShoppingCart)
+function mapStateToProps({shoppingCar}) {
+    // console.log(shoppingCar)
+    return {
+        carInfo:shoppingCar.carInfo,
+        isLoading: shoppingCar.isLoading
+    }
+}
+function mapDispatchToPros(dispatch) {
+    return {
+        getCart(){
+            dispatch(getCartList.getCart.call(this))
+        },
+        changeAllChecked(){
+            dispatch(getCartList.changeAllChecked.call(this))
+        },
+        changeChecked(carId,e){
+            e.stopPropagation()
+            dispatch(getCartList.changeChecked.call(this,carId))
+        },
+        addGoods(goodsAll,e){
+            e.stopPropagation()
+            dispatch(getCartList.joinGoods.call(this,goodsAll))
+        },
+        removeGoods(defaultGoodsId,e){
+            e.stopPropagation()
+            dispatch(getCartList.removeGoods.call(this,defaultGoodsId))
+        }
+    }
+}
+export default connect(mapStateToProps,mapDispatchToPros)(loading(ShoppingCart))

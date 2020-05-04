@@ -7,7 +7,7 @@ export default function (MyCom) {
             return (
                 <React.Fragment>
                     {
-                        this.state.isLoading?<div className={style.w_div}><img className={style.w_loading} src={timg} alt=""/></div>:super.render()
+                        (this.props.isLoading||this.state.isLoading)?<div className={style.w_div}><img className={style.w_loading} src={timg} alt=""/></div>:super.render()
                     }
                 </React.Fragment>
             )

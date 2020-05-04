@@ -124,6 +124,45 @@ html{
     border-left: 0;
     border-right: 0;
 }
+.w_prop{
+   width: 100%;
+    height: 100vh;
+    background: rgba(153,153,153,0.7);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+}
+.w_prop .w_prop_show{
+    width: 5rem;
+    margin-top: 50%;
+    background: rgba(255,255,255,0.85);
+    margin-left: 17%;
+    border-radius: 0.1rem;
+    font-size: 0.3rem;
+}
+.w_prop_show p:nth-child(1){
+    padding: 0.2rem 0;
+    border-bottom: 1px solid rgb(224,224,224);
+}
+.w_prop_show p:nth-child(2){
+    padding: 0.2rem;
+}
+.w_prop_show p:nth-child(3){
+    padding: 0.2rem 0.2rem;
+    width: 4.8rem;
+    height: 1.10rem;
+    margin: auto;
+}
+.w_prop_show p:nth-child(3) button{
+    width: 100%;
+    height: 100%;
+    outline: none;
+    background-color: #77bc1f;
+    color: #fff;
+    border: 0;
+    border-radius: 3px;
+}
 .w_footer_bar{
     width: 100%;
     height: 0.9rem;
