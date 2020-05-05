@@ -11,7 +11,13 @@ class Header extends Component {
             remList: []
         }
     }
-
+    handleScrollTop() {
+        window.scrollTo({
+            left: 0,
+            top: 0,
+            behavior: 'smooth',
+        });
+    }
     async componentDidMount() {
         const data = await this.$axios.get("/api/remList")
         console.log(data.remList)
@@ -60,11 +66,23 @@ class Header extends Component {
                 <div className = {"product"}>
                     {
                         this.state.remList.map((v) => {
-                            return <Link to={"/ProductInfo/"+v._id+".html"} key = {v._id} >
+                            return <Link to={"/categories"} key = {v._id} >
                                 <img src = {v.picture} alt = "" />
                             </Link>
                         })
                     }
+                </div>
+                <div className={"dh"}
+                     onClick={this.handleScrollTop}>
+                    <img src = "http://m.3songshu.com/resources/images/icon-stick@2x.e197d1fd.png" alt = "" /><i className = "icon cm-icon icon-search"></i>
+                </div>
+                <div className={"sh"} onClick={()=>{
+                    this.props.history.push("/categories/search");
+                }}>
+                    <img src = "http://m.3songshu.com/resources/images/icon-search-black@2x.d236cbe5.png" alt = "" />
+                </div>
+                <div className={"wx"}>
+                    <img src = "http://m.3songshu.com/resources/images/icon-chat-black@2x.a4950c6d.png" alt = "" />
                 </div>
             </div>
         );

@@ -24,7 +24,7 @@
 改动了productInfo,cartList,ShoppingCart,css文件，
 修改路由 /productInfo
 注意：跳转商品详情需要两个参数，goodsId，productId,
-按照  /productInfo/:goodsId/:productId.html   （goodsId是数据里的defaultGoodsId）
+按照  /productInfo/:goodsId/:productId.html   
 ***
 数据库文档
 carList集合
