@@ -20,7 +20,7 @@ import ShoppingCart from '../view/ShoppingCart'
 import CartList from "../view/car/CartList";
 import Header from "../components/fangdan/header";
 
-
+import Search from "../view/Search";
 
 export default [
   {
@@ -42,6 +42,9 @@ export default [
   },{
     path:"/productList",
     component:ProductList
+  },{
+    path:"/categories/search",
+    component:Search,
   },{
     path:"/userSetting",
     component:UserSetting
@@ -77,7 +80,7 @@ export default [
       path:"/categories",
       component:Categories,
       navname:"分类",
-      iconClass:"iconfont icon-leimupinleifenleileibie"
+      iconClass:"iconfont icon-leimupinleifenleileibie",
     },{
       path:"/integraIIndex",
       component:IntegraIIndex,
@@ -95,7 +98,6 @@ export default [
       isAuthorization:true,
       iconClass:"iconfont icon-gerenzhongxin"
     },
-
     ]
   }
 ]
