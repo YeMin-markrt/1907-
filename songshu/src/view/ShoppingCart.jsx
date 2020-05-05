@@ -16,6 +16,7 @@ class ShoppingCart extends Component {
         this.isChecked = true;
         this.state = {
             divBlock:"none",
+            divPay:'none'
         };
     };
 
@@ -115,8 +116,23 @@ class ShoppingCart extends Component {
                             <p>总价:<i>{sumPrice.toFixed(2)}</i> <span>优惠:<i>0.00</i></span></p>
                         </div>
                     </div>
-                    <div className={this.isChecked ? "w_foot_pay2" : "w_foot_pay"}>
+                    <div onClick={()=>{if(this.isChecked){this.setState({divPay:'block'})}else{this.setState({divPay:'none'})}}} className={this.isChecked ? "w_foot_pay2" : "w_foot_pay"}>
                         去结算
+                    </div>
+
+                </div>
+                <div className={"w_goingback"} style={{display:this.state.divPay}}>
+                    <div className={"w_gopay"}>
+                        <p>结算 <span onClick={()=>this.setState({divPay:'none'})}>X</span></p>
+                        <p>收获地址 <span className={"iconfont icon-up2"}></span></p>
+                        <p>优惠券<span className={"iconfont icon-up2"}></span></p>
+                        <p>松鼠币抵现 <span className={"iconfont icon-up2"}></span></p>
+                        <p>发票 <span className={"iconfont icon-up2"}></span></p>
+                        <p>商品清单 <span className={"iconfont icon-up2"}></span></p>
+                        <p>留言 <span className={"iconfont icon-up2"}></span></p>
+                        <p>支付方式 <span className={"iconfont icon-up2"}></span></p>
+                        <p>应付总额 <span className={"iconfont icon-up2"}></span><span><i>{sumPrice.toFixed(2)}</i>(含运费0.00)</span></p>
+                        <button>确认付款</button>
                     </div>
                 </div>
             </>
