@@ -1,5 +1,5 @@
 const currency = function (v) {
-  console.log(v)
+  // console.log(v)
   if(typeof(v)=='undefined'){
     return v
   }else{

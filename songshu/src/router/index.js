@@ -40,6 +40,7 @@ export default [
     path:"/productInfo/:goodsId/:productId.html",
     component:ProductInfo
   },{
+    // path:"/productList/:title/:url",
     path:"/productList",
     component:ProductList
   },{

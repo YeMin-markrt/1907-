@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Header  from "../components/wangjie/Header"
 import search from "../assets/css/wangjie/search.module.scss";
 
 export default class Search extends Component {
@@ -31,27 +32,7 @@ export default class Search extends Component {
     return (
       <div className={search.view}>
         {/* 头部 */}
-        <div className={search.header}>
-          <ul>
-            <li>
-              <button
-                className={search.btn_l}
-                onClick={() => {
-                  this.props.history.go(-1);
-                }}
-              >
-                <i className={"iconfont icon-zuo"}></i>
-              </button>
-            </li>
-            <li>
-              <i className={"iconfont icon-sousuo"}></i>
-              <input type="text" placeholder={"好吃的零食都在这~"} />
-            </li>
-            <li>
-              <button className={search.btn_r}>搜索</button>
-            </li>
-          </ul>
-        </div>
+        <Header {...this.props}></Header>
         {/* 内容 */}
         <div className={search.content}>
           {/* 热门搜索 */}

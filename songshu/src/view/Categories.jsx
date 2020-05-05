@@ -15,7 +15,7 @@ export default class Categories extends Component {
     this.navScroll = "";
   }
   //获取页面数据请求函数
-  async getDataList({ id = 0, depth, type }) {
+  async getDataList({ id = 0, depth, type } = {}) {
     const { data } = await this.$axios.get(
       "/songshu/mobile/api/navigation/listNew",
       {
@@ -27,12 +27,11 @@ export default class Categories extends Component {
         },
       }
     );
-    if(id==0){
+    if (id == 0) {
       return data;
-    }else{
-      this.setState({ categoryData:data });
+    } else {
+      this.setState({ categoryData: data });
     }
-    
   }
   //设置分类列表
   async setCategory() {
@@ -111,7 +110,19 @@ export default class Categories extends Component {
           <div className={categories.content}>
             <ul>
               {this.state.categoryData.map((v) => (
-                <li key={v.id}>
+                <li
+                  key={v.id}
+                  // onClick={()=>{this.props.history.push("/productList/"+v.name+v.params.url)}}
+                  onClick={() => {
+                    this.props.history.push({
+                      pathname: "/productList",
+                      state: {
+                        title: v.name,
+                        url: v.params.url,
+                      },
+                    });
+                  }}
+                >
                   <div>
                     <img src={v.pic} alt="" />
                   </div>
@@ -128,14 +139,23 @@ export default class Categories extends Component {
         >
           <ul>
             {this.state.discoverList.map((v) => (
-              <li key={v.id}>
+              <li
+                key={v.id}
+                onClick={() => {
+                  this.props.history.push({
+                    pathname: "/productList",
+                    state: {
+                      title: v.name,
+                      url: v.params.url,
+                    },
+                  });
+                }}
+              > 
                 <img src={v.pic} alt="" />
               </li>
             ))}
           </ul>
         </div>
-        {/* 子路由搜索页面跳转 */}
-        {/* <MyRouter router={this.props.childrends}></MyRouter> */}
       </div>
     );
   }
