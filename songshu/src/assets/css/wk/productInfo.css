@@ -127,6 +127,7 @@
     width: 0.52rem;
     height: 0.52rem;
     margin-right: 0.1rem;
+    float:left;
 }
 .w_info_top .w_info_row{
     flex: 1;
