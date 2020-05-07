@@ -53,10 +53,14 @@ export default {
     },
     getCart(){
         return async(dispatch)=>{
-            const data = await this.$axios.get("/api/getCar")
+            const data = await this.$axios.get("/api/getCar",{
+                params:{
+                    userName:localStorage.userName
+                }
+            })
             // console.log(data)
             if (data.ok === 1) {
-               dispatch(CreateShopCar(data.carInfo))
+                dispatch(CreateShopCar(data.carInfo))
             }
         }
     },
