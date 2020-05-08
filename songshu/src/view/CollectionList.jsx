@@ -23,7 +23,7 @@ export default class Article extends Component {
                     <div>
                         <p>有货</p>
                         <div className={style.icon}>
-                            <span className={"iconfont icon-iconset0213"}></span>
+                            <span className={"iconfont icon-iconset0213"} onClick={this.delteGoods.bind(this,v._id)}></span>
                             <span className={"iconfont icon-gouwuche"}></span>
                         </div>
 
@@ -55,11 +55,29 @@ export default class Article extends Component {
         )
     }
     async componentDidMount() {
-        const data = await this.$axios.get("/api/getCollect");
-        console.log(data)
+        const data = await this.$axios.get("/api/getCollect",{
+            params:{
+                userName:localStorage.userName
+            }
+        });
+        // console.log(data)
         this.setState({
             collectInfo:data.collectList
         })
     }
-
+    async delteGoods(id){
+        const res = await this.$axios.delete("/api/deleteCollect",{
+            params:{
+                id,
+                userName:localStorage.userName
+            }
+        })
+        // console.log(res)
+        if(res.ok===1){
+            this.setState({
+                collectInfo:res.collectList
+            })
+        }
+    }
 }
+
