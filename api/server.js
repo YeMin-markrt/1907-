@@ -253,13 +253,14 @@ app.get("/getCarList",async(req,res)=>{
 })
 //加入收藏
 app.post("/joinCollect",async(req,res)=>{
-    const {goodsId} = req.body;
+    const {goodsId,userName} = req.body;
     // console.log(goodsId)
     const carInfo = await db.findOne("carList",{
         defaultGoodsId:goodsId/1
     })
     const goodsInfo = await db.findOne("collect",{
-        goodsId
+        goodsId,
+        userName
     })
     // console.log(carInfo,goodsInfo)
     //如果收藏夹有该商品则进行删除操作
@@ -272,6 +273,7 @@ app.post("/joinCollect",async(req,res)=>{
     }else{
         //没有收藏
         await db.insertOne("collect",{
+            userName,
             goodsId,
             name:carInfo.name,
             price:carInfo.salesPrice.value,
@@ -285,9 +287,30 @@ app.post("/joinCollect",async(req,res)=>{
 })
 //获取收藏
 app.get("/getCollect",async(req,res)=>{
-    const collectList  = await db.find("collect");
+    const {userName} = req.query;
+    const collectList  = await db.find("collect",{
+        whereObj:{
+            userName
+        }
+    });
     res.json({
         ok:1,
+        collectList
+    })
+})
+//删除
+app.delete("/deleteCollect",async(req,res)=>{
+    const {id,userName} = req.query;
+    await db.deleteOneById("collect",id)
+
+    const collectList = await db.find("collect",{
+        whereObj:{
+            userName
+        }
+    })
+    res.json({
+        ok:1,
+        msg:"删除成功",
         collectList
     })
 })
