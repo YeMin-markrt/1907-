@@ -145,9 +145,10 @@ class ProductInfo extends Component {
     async joinCollect() {
         const goodsId = this.props.match.params.goodsId
         const collect = await this.$axios.post("/api/joinCollect", {
-            goodsId
+            goodsId,
+            userName:localStorage.userName
         });
-        console.log(collect)
+        // console.log(collect)
         if(collect.ok===1){
             alert(collect.msg)
         }else{
