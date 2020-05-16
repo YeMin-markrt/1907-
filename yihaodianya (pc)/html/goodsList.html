@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>1号店(yhd.com)_全球超市，轻松到家！</title>
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_1550154_8y9pffj7ruw.css">
+  <link rel="stylesheet" href="../css/nav.css">
+</head>
+
+<body>
+  <header class="uuu"></header>
+
+  <!--------------------------------- 商品列表页面 ---------------------------------------->
+  <div class="goodslist w">
+    <div class="goodslistxuan wc">
+      <input type="radio" checked name="orderCol" value="id"><label for="">编号</label>
+      <input type="radio" name="orderCol" value="goodsName"><label for="">商品名</label>
+      <input type="radio" name="orderCol" value="goodsPrice"><label for="">价格</label>
+      <input type="radio" name="orderCol" value="goodsNum"><label for="">数量</label>
+
+
+      <input type="radio" checked name="orderType" value="asc" class="orderType" id="" style="margin-left: 40px;"><label
+        for="">升序</label>
+      <input type="radio" name="orderType" value="desc" class="orderType" id=""><label for="">降序</label>
+
+      <select name="" id="seletPage" style="margin-left: 40px;">
+        <option value="20">每页显示20条</option>
+        <option value="30">每页显示30条</option>
+        <option value="40">每页显示40条</option>
+      </select>
+    </div>
+    <div class="mod_product_list wc cl">
+      <ul class="list_width cl">
+        <!-- <li class="mod_search_pro">
+          <div class="itemBox">
+            <a href="">
+              <img src="../img/5.jpg"></a>
+            <p class="proPrice"><b>¥</b>69.90</p>
+            <p class="proName clearfix sl">修正祛痘膏加寡肽原液精华祛痘印淡化痘疤痘坑芦荟胶祛痘产品套装男女青春痘粉刺精华面霜 单只装20g</p>
+            <div class="imp">满199减100</div>
+            <div class="item_act">
+              <div class="shopping_num cl">
+                <input value="1" type="text" class="input1">
+                <p>
+                  <span class="zengjian add"><i class="iconfont icon-iconzhongxinzhengli-1"></i></span>
+                  <span class="zengjian reduce"><i class="iconfont icon-iconzhongxinzhengli-"></i></span>
+                </p>
+              </div>
+              <div class="shopping_act ">加入购物车</div>
+            </div>
+            <p class="proPrice cl">
+              <span class="comment"><i class="iconfont icon-xiaoxidefuben"></i>28万+</span>
+              <span class="comment positiveRatio"><i class="iconfont icon-diancai1-copy"></i>98%</span>
+            </p>
+            <p class="storeName">
+              <span class="subscribe_self_send ">京东配送</span>
+              <span class="shop_text sl">修正美妆旗舰店</span>
+              <span class="iconfont icon-next-copy"></span>
+            </p>
+          </div>
+          <div class="pro_toast_info">
+             <span class="pro_toast_text" style="color=green">√</span>
+            <i class="icon-daosanjiao1"></i>
+            <span class="pro_toast_text">成功加入购物车</span>
+          </div>
+        </li> -->
+      </ul>
+      <div class="xuanzepage wc">
+        <span>
+          <button class="prea">上一页</button>
+          <button class="nexta">下一页</button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <footer>
+
+  </footer>
+</body>
+<script src="../js/jquery-1.10.1.min.js"></script>
+<script src="../js/cookie.js"></script>
+<script>
+
+  
+  $("header").load("header.html", function () {
+    $.getScript("../js/nav.js", function () {
+      $("footer").load("footer.html");
+      $(".uuu .hd_search_ipt").on("input blur focus", function () {
+        key = $(".uuu .hd_search_ipt").val();
+        searchGoods(key, orderCol, orderType, pageIndex, showNum);
+      })
+
+      $(".uuu .hd_search_btn").click(function () {
+        key = $(".uuu .hd_search_ipt").val();
+        searchGoods(key, orderCol, orderType, pageIndex, showNum);
+      })
+
+
+      var cookie = document.cookie;
+      if (cookie) {
+        var log_user = getCookie("log_user");
+        if (log_user) {
+          var html = `
+      <span class="hd_hi">欢迎,${log_user}的</span>
+                  <a href="" class="hd_login_link " style="color: #ff4040;">登录&nbsp;</a>
+                  <a href="" class="hd_exit_link" style="color: #aaa;">&nbsp;退出登录</a>
+      `
+          $(".uuu .hd_unlogin").html(html)
+        }
+      }
+
+      $(".uuu .hd_exit_link").click(function () {
+        setCookie("log_user", "", -7);
+        setCookie("log_pwd", "", -7);
+        setCookie("log_id", "", -7);
+      })
+    });
+
+
+  });
+
+  var orderCol = "id";
+  var orderType = 'asc';
+  var pageIndex = 1;
+  var showNum = 20;
+  var key = '';
+  searchGoods(key, orderCol, orderType, pageIndex, showNum);
+
+  $("input[name='orderCol']").change(function () {
+    orderCol = $(this).val();
+    // console.log(orderCol);
+    searchGoods(key, orderCol, orderType, pageIndex, showNum);
+  })
+
+  $("input[name='orderType']").change(function () {
+    orderType = $(this).val();
+    // console.log(orderType);
+    searchGoods(key, orderCol, orderType, pageIndex, showNum);
+  })
+  
+  $("#seletPage").change(function () {
+    showNum = $(this).val();
+    // console.log(showNum);
+    searchGoods(key, orderCol, orderType, pageIndex, showNum);
+  })
+
+  
+  if (pageIndex <= 1) {
+    $(".prea").css("disabled", true);
+    $(".nexta").css("disabled", false);
+  }
+
+  function searchGoods(key, orderCol, orderType, pageIndex, showNum) {
+    $.ajax({
+      type: "get",
+      dataType: "json",
+      data: {
+        key,
+        orderCol,
+        orderType,
+        pageIndex,
+        showNum
+      },
+      url: "../php/goodscha.php",
+      success(res) {
+        var maxPage = Math.ceil(res.count / showNum);
+        html = '';
+        res.goods.forEach(({ id, goodsId, goodsMsg, goodsImg, goodsPrice }) => {
+          html += `
+        <li class="mod_search_pro goodsId=${goodsId}">
+          <div class="itemBox">
+            <a href="./goodsinfo.html?goodsId=${goodsId}">
+              <img src="../img/${goodsImg}"></a>
+            <p class="proPrice"><b>¥</b>${goodsPrice}</p>
+            <p class="proName clearfix sl">${goodsMsg}</p>
+            <div class="imp">满199减100</div>
+            <div class="item_act">
+              <div class="shopping_num cl">
+                <input value="1" type="text" class="input1">
+                <p>
+                  <span class="add zengjian"><i class="iconfont icon-iconzhongxinzhengli-1"></i></span>
+                  <span class="reduce zengjian"><i class="iconfont icon-iconzhongxinzhengli-"></i></span>
+                </p>
+              </div>
+              <div class=" shopping_act ">加入购物车</div>
+            </div>
+            <p class="proPrice cl">
+              <span class="comment "><i class="iconfont icon-xiaoxidefuben"></i>${5000 + Math.round(Math.random() * (9999 - 5000))}+</span>
+              <span class="comment positiveRatio"><i class="iconfont icon-diancai1-copy"></i>${70 + Math.round(Math.random() * (99 - 70))}%</span>
+            </p>
+            <p class="storeName">
+              <span class="subscribe_self_send ">京东配送</span>
+              <span class="shop_text sl">修正美妆旗舰店</span>
+              <span class="iconfont icon-next-copy"></span>
+            </p>
+          </div>
+          <div class="pro_toast_info">
+            <span class="pro_toast_text1">√</span>
+            <i class="icon-daosanjiao1"></i>
+            <span class="pro_toast_text">成功加入购物车</span>
+          </div>
+        </li>`
+        });
+        $(".list_width").html(html);
+
+        if (pageIndex == 1) {
+          $(".prea").css("disabled", true);
+          $(".nexta").css("disabled", false);
+        } else if (pageIndex == maxPage) {
+          $(".prea").css("disabled", false);
+          $(".nexta").css("disabled", true);
+        } else {
+          $(".prea").css("disabled", false);
+          $(".nexta").css("disabled", false);
+        }
+
+        $(".prea").click(function () {
+          if (pageIndex < 1) {
+            $(".prea").css("disabled", true);
+            $(".nexta").css("disabled", false);
+            return
+          }
+          pageIndex--;
+          if (pageIndex == 1) {
+            $(".prea").css("disabled", true);
+          }
+          $(".nexta").css("disabled", false);
+          searchGoods(key, orderCol, orderType, pageIndex, showNum)
+        })
+
+        $(".nexta").click(function () {
+          if (pageIndex >= maxPage) {
+            $(".prea").css("disabled", false);
+            $(".nexta").css("disabled", true);
+            return
+          }
+          pageIndex++;
+          if (pageIndex == maxPage) {
+
+            $(".nexta").css("disabled", true);
+          }
+          $(".prea").css("disabled", false);
+
+          searchGoods(key, orderCol, orderType, pageIndex, showNum)
+        })
+
+        $(".shopping_act").click(function () {
+          var index = $(this).index(".itemBox .shopping_act");
+          $(".pro_toast_info").eq(index).css("display", "block");
+          setTimeout(function () {
+            $(".pro_toast_info").eq(index).css("display", "none");
+          }, 500)
+        })
+
+        // 加减
+
+        $(".add").css("disabled", false);
+        $(".reduce").css("disabled", false);
+
+        $(".add").click(function () {
+          var index = $(this).index(".itemBox .add");
+          count = $(".input1").eq(index).val();
+          $(".input1").eq(index).val(count * 1 + 1)
+        })
+
+
+        $(".reduce").click(function () {
+          var index = $(this).index(".itemBox .reduce");
+          count = $(".input1").eq(index).val();
+          if (count <= 1) {
+            $(".reduce").css("disabled", true);
+            return;
+          }
+          $(".input1").eq(index).val(count * 1 - 1)
+        })
+      }
+    })  
+  }
+
+
+
+
+
+
+</script>
+
+</html>

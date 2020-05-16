@@ -1,0 +1,189 @@
+input{
+  border: 0px;
+  outline: none;
+  cursor: pointer;
+}
+button{
+  border: 0px;
+  outline: none;
+  cursor: pointer;
+}
+.regist{
+  width: 100%;
+  .regist_heder{
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    font-size: 20px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    color: #333;
+    position: relative;
+    .regist_left{
+      position: absolute;
+      left:6px;
+      font-size:24px;
+      color: #bbb; 
+    }
+  }
+  .regist_heder_guodu{
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    background-color: #ffeded;
+    opacity: .75;
+    color: #f66;
+  }
+  .regist_body{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    color: #bbb;
+    overflow: hidden;
+    .regist_body_content{
+      width: 100%;
+      height: 50px;
+    li{
+      width: 100%;
+      height: 30px;
+      line-height: 30px;
+      border-bottom:1px solid rgba(0,0,0,.1);
+      position: relative;
+      input{
+        position: absolute;
+        left: 0;
+        top:-3px;
+        width: 75%;
+        font-size: 14px;
+      }
+      .random{
+        display: inline-block;
+        float: right;
+        width: 23%;
+         margin-top:-5px;
+        height: 24px;
+        line-height: 24px;
+        background-color: #f66;
+        text-align: center;
+        font-size: 13px;
+        color: #fff;
+        border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        -ms-border-radius: 2px;
+        -o-border-radius: 2px;
+      }
+      .icon-chahao{
+        position: absolute;
+        right:45px;
+        top:-2px;
+        font-size:20px;
+      }
+      .icon-chahao1{
+        position: absolute;
+        right:10px;
+        top:-2px;
+        font-size:20px;
+        color: greenyellow;
+      }
+    }
+    .tip{
+      width: 100%;
+      height: 20px;
+      line-height: 20px;
+      border:0px;
+      color: rgb(255, 102, 102);
+      text-align: left;
+    }
+  }
+    
+    .activebtn{
+      width: 100%;
+      height: 45px;
+      line-height: 45px;
+      color: rgb(255, 255, 255);
+      background: rgb(255, 102, 102);
+      margin:30px 0 15px 0;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+    }
+    .regist_btn{
+      width: 100%;
+      height: 45px;
+      line-height: 45px;
+      background: #eee;
+      border-color: #eee;
+      color: #bcbcbc;
+      margin:30px 0 15px 0;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+    }
+
+    .account-jump-bar{
+      width: 100%;
+      height: 40px;
+      line-height: 40px;
+      color: #999;
+      font-size: 14px;
+      .fenge{
+        margin: 0 8px;
+      }
+    }
+  
+    .regist_bottom{
+      width: 100%;
+      height: 140px;
+      margin-top:35px;
+      color: #989898;
+      font-size: 13px;
+      overflow: hidden;
+      .regist_bottom_header{
+        span{
+          display: inline-block;
+          width: 32%;
+          border-top:1px solid rgba(0,0,0,.1);
+          margin: 2px 5px;
+        }
+      }
+      .regist_bottom_content{
+        width: 100%;
+        height: 70px;
+        box-sizing: border-box;
+        padding: 10px 0;
+        margin-top: 20px;
+        li{
+          width: 20%;
+          height: 100%;
+          float: left;
+          border:0px ;
+          img{
+            width: 50px;
+            height: 50px;
+          }
+        }
+      }
+
+      .agree_item{
+        width: 100%;
+        height: 20px;
+        line-height: 20px;
+        font-size: 13px;
+        margin-top:10px;
+        .clasue-text{
+          font-weight: 800;
+          margin: 0 4px;
+        }
+        .xieyi{
+          text-decoration: normal;
+          color: #ff7070;
+        }
+      }
+    }
+  }
+}

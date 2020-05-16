@@ -1,0 +1,205 @@
+.paymomey{
+  width: 100%;
+  background: #F0F0F0;
+  overflow: hidden;
+
+  .nogoods{
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    .icon-gouwuche{
+      margin-top: 10px;
+      font-size: 26px;
+    }
+    p{
+      margin-top: 10px;
+      font-size: 15px;
+      span{
+        width: 120px;
+        height: 24px;
+        border-radius: 5px;
+        line-height: 24px;
+        border: 1px solid #FF394E;
+        color: #FF394E;
+        background: #fff;
+        display: inline-block;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+  }
+    }
+  }
+  .regist_heder{
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    font-size: 20px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    color: #333;
+    position: relative;
+    border-bottom: 1px solid #f9f9f9;
+    background: #fff;
+    .regist_left{
+      position: absolute;
+      left:6px;
+      font-size:24px;
+      color: #bbb; 
+    }
+    .goodslist_hui{
+      position: absolute;
+      right:10px;
+      font-size:24px;
+      color: #bbb; 
+    }
+  }
+
+  .paycontent{
+    margin-bottom: 66px;
+    width: 100%;
+    margin-top:10px;
+    min-height: 200px;
+    background: #fff;
+    .usr_shop{
+      width: 100%;
+      box-sizing: border-box;
+      padding:0 10px;
+      text-align: left;
+      .usr_shop_header{
+        width: 100%;
+        height: 41px;
+        line-height: 41px;
+        color: #969AAE;
+        font-size: 16px;
+        input{
+          margin: 0 10px;
+          width: 16px;
+          height: 16px;
+         
+        }
+      }
+    .usermai{
+      width: 100%;
+      height: 122px;
+      border-top: 1px solid #EEEEEE;
+      background: #fff;
+
+      .usermai_1{
+        width: 25px;
+        height: 122px;
+        line-height: 122px;
+        margin-left: 10px;
+        float: left;
+        input{
+          width: 16px;
+          height: 16px;
+         
+        }
+      }
+      .usermai_2{
+        width: 80px;
+        height: 80px;
+        float: left;
+        margin-top: 20px;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .usermai_3{
+        width:60%;
+        height: 90px;
+        margin-top:20px;
+        float: left;
+        margin-left: 8px;
+        .usermai_3_title{
+          width: 100%;
+          height: 20px;
+          line-height: 20px;
+          font-size: 15px;
+          font-weight: 700;
+          color: #262D56;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin-bottom: 0px;
+        }
+        .usermai_3_rule{
+          width: 100%;
+          height: 18px;
+          line-height: 18x;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .usermai_3_bottom{
+          width: 100%;
+          height: 38px;
+          line-height: 38x;
+          margin-top: 15px;
+          .usermai_3_price{
+            float: left;
+            font-size:18px;
+            color: #FF394E;
+          }
+         .usr_num{
+           display: inline-block;
+           float: right;
+           margin-right: 20px;
+           color: #999;
+           font-size: 14px;
+         }
+        }
+      }
+    }
+  }
+  }
+
+  .detail_nav{
+    width: 100%;
+    height: 65px;
+    background: #fbfbfc;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+      .detail_nav_box1{
+        width: 50%;
+        float: left;
+        height: 65px;
+        line-height: 65px;
+        color: #686B85;
+        font-size: 16px;
+        text-align: left;
+        white-space: nowrap;
+        box-sizing: border-box;
+        padding-left: 15px;
+        span{
+          font-size: 20px;
+          color: #FF394E;
+        }
+      }
+      .detail_nav_box2{
+        width: 25%;
+        float: left;
+        font-size: 16px;
+        height: 100%;
+        line-height: 65px;
+        background: #FF5A73;
+        font-weight: 700;
+        color: greenyellow;
+      }
+  
+      .detail_nav_box3{
+          width: 25%;
+          float: right;
+          font-size: 16px;
+          height: 100%;
+          line-height: 65px;
+          background: #FF5A73;
+          font-weight: 700;
+          color: #FFFFFF;
+    
+    }
+  }
+}

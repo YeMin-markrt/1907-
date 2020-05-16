@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>1号店(yhd.com)_全球超市，轻松到家！</title>
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_1550154_gmqtib9qk0c.css">
+  <link rel="stylesheet" href="../css/nav.css">
+</head>
+
+<body>
+  <header></header>
+
+  <div class="y_regist_wrap">
+    <div class="wrap wc cl">
+      <div class="mod_left_banner"><a id="imgLink" target="_blank"><img id="img" src="../img/10.png"></a></div>
+
+      <div class="mod_login_wrap">
+        <div class="login_pc">
+          <p class="error_tips">账号和密码不匹配，请重新输入</p>
+          <div class="clearfix1 form_item1 cl">
+            <h3>1号店用户登录</h3>
+            <a href="./regist.html" class="regist_new blue_link">注册新账号</a>
+          </div>
+
+          <div class="form_item  cl">
+            <label class="kkk iconfont icon-denglu">&nbsp;</label>
+            <input type="text" class="ipt ipt_username" placeholder="邮箱/用户名/手机号 ">
+          </div>
+
+          <div class="form_item cl">
+            <label class="kkk iconfont icon-mima">&nbsp;</label>
+            <input id="pwd" type="password" class="ipt ipt_password " placeholder="密码 ">
+          </div>
+
+          <div class="auto_login cl">
+            <input type="checkbox" id="checkme">
+            <a class="uncheck_agreement">自动登录</a>
+            <a class="forget_pswd">忘记密码？</a>
+          </div>
+
+          <button id="login_button" type="button" class="login_btn">登录</button>
+          <p>更多合作网站 账号登录</p>
+        </div>
+
+
+      </div>
+    </div>
+
+
+
+    <!--------------- 底部 -------------------->
+    <div class="simplefooter w">
+      <a>沪ICP备16050468号</a>|<a>沪B2-20170039</a>|<a>营业执照</a>
+      <p>Copyright © 1号店网上超市 2007-2018，All Rights Reserved</p>
+    </div>
+</body>
+<script src="../js/cookie.js"></script>
+<script src="../js/jquery-1.10.1.min.js"></script>
+<script>
+  $("header").load("header2.html", function () {
+    $.getScript("../js/nav.js");
+  });
+
+
+
+  $(".error_tips").css("display", "none")
+  $("#login_button").click(function () {
+    var count = $(".ipt_username").val();
+    var pwd = $(".ipt_password").val();
+    $.ajax({
+      type: "get",
+      dataType: "json",
+      data: {
+        count,
+        pwd,
+      },
+      url: "../php/login.php",
+      success(res) {
+        if (res.status) {
+          $(".error_tips").css("display", "none");
+          if ($(".uncheck_agreement").checked) {
+            setCookie("log_user", res.user, 7);
+            setCookie("log_pwd", res.pwd, 7);
+            setCookie("log_id", res.id, 7);
+          } else {
+            setCookie("log_user", res.user);
+            setCookie("log_pwd", res.pwd);
+            setCookie("log_id", res.id);
+          }
+          var backUrl = getCookie("backUrl");
+          if (backUrl) {
+            setCookie("backUrl", "", -1);
+            location.href = `${backUrl}`;
+            return false;
+          }
+          location.href = "./goodsList.html";
+        } else {
+          $(".error_tips").css("display", "block");
+          $(".error_tips").html(res.msg);
+        }
+      }
+    })
+  })
+
+
+
+</script>
+
+</html>

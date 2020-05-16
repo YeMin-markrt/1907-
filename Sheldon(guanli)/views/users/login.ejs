@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>login</title>
+    <link
+      href="/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/gentelella/vendors/font-awesome/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link href="/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet" />
+    <link
+      href="/gentelella/vendors/iCheck/skins/flat/green.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/gentelella/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/gentelella/vendors/jqvmap/dist/jqvmap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css"
+      rel="stylesheet"
+    />
+    <link href="/gentelella/build/css/custom.min.css" rel="stylesheet" />
+  </head>
+
+  <body class="login">
+    <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+            <form id="myform">
+              <h1>Login Form</h1>
+              <div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Username"
+                  required=""
+                  name="username"
+                  id="username"
+                />
+              </div>
+              <div>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                  required=""
+                  name="password"
+                  id="password"
+                />
+              </div>
+              <div>
+                <a class="btn btn-default submit" id="login">Log in</a>
+                <!-- <a class="reset_pass" href="#">Lost your password?</a> -->
+              </div>
+              <div class="clearfix"></div>
+              <div class="separator">
+                <p class="change_link">
+                  New to site?
+                  <a href="#signup" class="to_register"> Create Account </a>
+                </p>
+                <div class="clearfix"></div>
+                <br />
+                <div>
+                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                  <p>
+                    ©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap
+                    3 template. Privacy and Terms
+                  </p>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+        <div id="register" class="animate form registration_form">
+          <section class="login_content">
+            <form>
+              <h1>Create Account</h1>
+              <div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Username"
+                  required=""
+                />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Email"
+                  required=""
+                />
+              </div>
+              <div>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                  required=""
+                />
+              </div>
+              <div>
+                <a class="btn btn-default submit" href="index.html">Submit</a>
+              </div>
+              <div class="clearfix"></div>
+              <div class="separator">
+                <p class="change_link">
+                  Already a member ?
+                  <a href="#signin" class="to_register"> Log in </a>
+                </p>
+                <div class="clearfix"></div>
+                <br />
+                <div>
+                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                  <p>
+                    ©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap
+                    3 template. Privacy and Terms
+                  </p>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/javascripts/jquery-1.11.3.js"></script>
+  <script>
+    $("#login").click(function(){
+      // alert(666);
+      $.ajax({
+        type:"post",
+        url:"/users/login",
+        data:$("#myform").serializeArray(),
+        dataType:"json"
+      }).then(function(result){
+        if(result.code==1){
+          // alert("成功")
+          // alert(result.type);
+          switch(result.type){
+            case 1:
+              window.location.href="/manage"
+              break;
+              case 3:
+              window.location.href="/memberTes"
+              break;
+              case 2:
+              window.location.href="/memberDev"
+              break;
+          }
+        }else{
+          // alert("失败");
+          alert(result.msg);
+        }
+      })
+
+
+
+    })
+
+
+  </script>
+</html>

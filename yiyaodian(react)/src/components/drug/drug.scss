@@ -1,0 +1,241 @@
+.drug {
+  width: 100%;
+  .goodslist_heder {
+    height: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    color: #414141;
+    position: relative;
+    background: #fafafa;
+    text-align: center;
+    .goodslist_left {
+      position: absolute;
+      left: 6px;
+      font-size: 24px;
+      color: #bbb;
+    }
+    .goodslist_hui {
+      position: absolute;
+      right: 10px;
+      font-size: 24px;
+      color: #bbb;
+    }
+  }
+
+  .main_img {
+    width: 100%;
+    height: 224px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .main_imgx {
+    width: 100%;
+    height: 103px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .main_content1 {
+    width: 100%;
+    min-height: 400px;
+    background: #eeeeee;
+    .content1_img {
+      width: 100%;
+      height: 76px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .detail_content_head {
+      width: 100%;
+      .drug_top {
+        width: 100%;
+        height: 30px;
+        text-align: left;
+        overflow: hidden;
+        .head_left {
+          display: inline-block;
+          width:70px;
+          text-align: center;
+          height: 20px;
+          font-size: 13px;
+          font-weight: 700;
+          line-height: 20px;
+          border-left: 2px solid rgb(73, 144, 226);
+          margin-left: 10px;
+        }
+        .head_right {
+          color: rgb(247, 95, 93);
+        }
+      }
+    }
+
+    .main_imgx1 {
+      width: 100%;
+      height: 130px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+   
+  }
+}
+
+.detail_content::-webkit-scrollbar {
+  display: normal;
+}
+.detail_content {
+  width: 100%;
+  height: 190px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  .detail_content_max {
+    height: 190px;
+    li {
+      width: 124px;
+      height: 190px;
+      float: left;
+      box-sizing: border-box;
+      padding: 10px;
+      text-align: left;
+      margin-left: 16px;
+      margin-top: 10px;
+      .img_content {
+        width: 88px;
+        height: 88px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .detail_content_top {
+        width: 100%;
+        height: 30px;
+        line-height: 15px;
+        white-space: pre-wrap;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+      .detail_content_bottom {
+        color: rgb(251, 110, 110);
+        border-top: 1px dashed rgb(251, 110, 110);
+        font-size: 20px;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+
+.goodslist_content {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  .goodslist_goods {
+    width: 100%;
+    height: 140px;
+    box-sizing: border-box;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+    overflow: hidden;
+    .grab_content_left {
+      width: 100px;
+      height: 100px;
+      float: left;
+      margin-top: 20px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .grab_content_right {
+      width: 65%;
+      height: 140px;
+      float: left;
+      margin-left: 12px;
+      text-align: left;
+      .grab_content_title {
+        width: 90%;
+        height: 20px;
+        font-size: 14px;
+        line-height: 20px;
+        margin-top: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 0px;
+      }
+      .grab_content_num {
+        color: #707070;
+        width: 90%;
+        height: 16px;
+        font-size: 12px;
+        line-height: 16px;
+        margin-top: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+      }
+      .grab_content_price {
+        width: 90%;
+        height: 16px;
+        font-size: 18px;
+        line-height: 17px;
+        margin-top: 20px;
+        color: #ff6666;
+        text-align: left;
+      }
+      .grab_content_bottom {
+        width: 100%;
+        height: 30px;
+        margin-top: 10px;
+        .gou {
+          display: inline-block;
+          float: right;
+          width: 79px;
+          height: 30px;
+          line-height: 30px;
+          border-radius: 5px;
+          background: #ff6666;
+          color: #fff;
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          -ms-border-radius: 5px;
+          -o-border-radius: 5px;
+          text-align: center;
+          margin-top: -25px;
+        }
+      }
+    }
+  }
+}
+
+.main_imgxtt{
+  width: 100%;
+  height: 150px;
+  margin-bottom: 60px;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+}

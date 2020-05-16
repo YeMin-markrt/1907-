@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_1550154_839jpta2nul.css">
+  <link rel="stylesheet" href="../css/nav.css">
+  <link>
+  <title>1号店(yhd.com)_全球超市，轻松到家！</title>
+</head>
+
+<body>
+  <div class="order_header w">
+    <div class="clearfix wc">
+      <a class="logo" href="../index.html"><img src="../img/24.jpg" alt=""></a>
+      <a class="logo_txt"><img src="../img/12.png" alt="" class="bbbb"></a>
+    </div>
+  </div>
+
+
+  <div class="same_module_rel w">
+    <div class="mod_rel_head wc">
+      <div class="od_rel_"> 请选择收货地址 </div>
+
+
+      <div class="chaxun_boxleft_tit wc cl">
+        <ul class="cl">
+          <a href="/">
+            <li class="hover">国内</li>
+          </a>
+        </ul>
+      </div>
+      <!-- 省 -->
+      <div class="chaxun_xleft01 wc cl" id="cityfirst">
+        <!-- <a>直辖市</a> -->
+      </div>
+      <!-- 市 -->
+      <div class="chaxun_xleft011 wc cl" id="citysecond">
+        <!-- <a>香港</a> -->
+      </div>
+      <!-- 区 -->
+      <div class="chaxun_xleft012 wc cl" id="cityend">
+        <!-- <a>文山</a> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="same_module_rel w">
+    <div class="mod_rel_head wc">
+      <div class="od_rel_"> 请选择支付方式:</div>
+      <ul class="cl">
+        <li class="choose-attr-1 cl actt">
+          <i class="sl">支付宝</i>
+        </li>
+        <li class="choose-attr-1 cl">
+          <i class="sl">微信</i>
+        </li>
+        <li class="choose-attr-1 cl">
+          <i class="sl">银行卡</i>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <div class="zhezhao">
+    <div class="zuizhong">
+      <div class="yhrf">请支付</div>
+      <img src="../img/19.jpg" alt="">
+    </div>
+  </div>
+
+
+  <div class="pay_tools_inner w cl">
+    <div class="pay_tools_inner cl">
+      <div class="pay_tools_l cl">
+        <input type="checkbox" class="checkAll">
+        <label class="all_checked_label">全选（共<b class="hhh">0</b>件）</label>
+        <i class="iconfont  icon-vertical_line"></i>
+        <span class="wu">清除无效商品</span>
+        <i class="iconfont  icon-vertical_line ff"></i>
+        <span class="delAll">批量删除</span>
+      </div>
+
+      <div class="pay_tools_r cl">
+        <div class="r_prod_view r_control_tip cl">
+          <span class="rpv_count">已选商品<b class="erth hhh">0</b>件</span>
+          <a class="pvw">预览</a> |
+        </div>
+        <div class="r_price_total cl"> 合计：
+          <span class="rpt_count">¥<b class="lastPriceh">00.00</b></span>
+        </div>
+        <a class="checkout_btn1 checkout_btn11">去结算</a>
+      </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="simplefooter w">
+      <a>沪ICP备16050468号</a>|<a>沪B2-20170039</a>|<a>营业执照</a>
+      <p>Copyright © 1号店网上超市 2007-2018，All Rights Reserved</p>
+    </div>
+  </div>
+
+
+</body>
+<script src="../js/cookie.js"></script>
+<script src="../js/jquery-1.10.1.min.js"></script>
+<script src="../js/nav.js"></script>
+<script>
+ var cookie = document.cookie;
+ var log_user = getCookie("log_user");
+if (!log_user) {
+  location.href = "./login.html";
+  }
+  
+  $(".lastPriceh").html(getCookie("aa"));
+  $(".hhh").html(getCookie("aaa"));
+
+  $(".choose-attr-1").click(function () {
+    var index = $(this).index();
+    $(".choose-attr-1").eq(index).addClass("actt").siblings().removeClass("actt");
+  })
+
+
+  $(".checkout_btn11").click(function () {
+    $(".zhezhao").css("display","block");
+    $(".zhezhao").click(function(){
+      $(".zhezhao").css("display","none");
+    })
+
+  })
+
+
+  const API = '../js/area.json';
+  var oCity = document.querySelector('#cityfirst');
+  var oCitysecond = document.querySelector('#citysecond');
+  var oCityend = document.querySelector("#cityend");
+
+  const APIKEY = `ouvqqcgh6wfqbr1u`;
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('get', API, true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var res = xhr.responseText;
+      res = JSON.parse(res).list
+      //console.log(res)
+      var provinceList = findProvince(res)
+      //console.log(provinceList)
+
+      html = '';
+      provinceList.forEach(({ city_id, name }) => {
+        html += `<a city_id=${city_id}>${name}</a>`
+      })
+      oCity.innerHTML = html
+
+      oCity.onclick = function (e) {
+        var ev = e || event;
+        var target = ev.target || ev.srcElement;
+        var oC = document.querySelectorAll('#cityend a')
+        for (let i = 0; i < oC.length; i++) {
+          oC[i].classList.remove('hovers')
+        }
+        var oA = document.querySelectorAll('#cityfirst a')
+        if (target.nodeName == 'A') {
+
+          for (let i = 0; i < oA.length; i++) {
+            oA[i].classList.remove('hovers')
+          }
+
+          target.classList.add('hovers');
+          var data = target.getAttribute('city_id')
+          //console.log(data)
+          var list = provinceList.filter(value => {
+            return value.city_id == data;
+          })[0]
+          //console.log(list)
+          if (list) {
+            var cityList = list.list;
+            //console.log(cityList)
+            html = '';
+            cityList.forEach(({ city_id, name }) => {
+              html += `<a city_id=${city_id}>${name}</a>`
+            })
+            oCitysecond.innerHTML = html
+
+            oCitysecond.onclick = function (e) {
+              var ev = e || event
+              var target = ev.target || ev.srcElement
+              if (target.nodeName == 'A') {
+                var oB = document.querySelectorAll('#citysecond a')
+                if (target.nodeName == 'A') {
+
+                  for (let i = 0; i < oB.length; i++) {
+                    oB[i].classList.remove('hovers')
+                  }
+                  target.classList.add('hovers');
+                  var data = target.getAttribute('city_id')
+                  var list = cityList.filter(value => {
+                    return value.city_id == data;
+                  })[0]
+                  //console.log(list);
+                  if (list) {
+                    var cityendList = list.list;
+                    //console.log(cityList)
+                    html = '';
+                    cityendList.forEach(({ city_id, name }) => {
+                      html += `<a city_id=${city_id}>${name}</a>`
+                    })
+                    oCityend.innerHTML = html
+
+                    oCityend.onclick = function (e) {
+                      var ev = e || event
+                      var target = ev.target || ev.srcElement
+                      if (target.nodeName == 'A') {
+
+                        if (target.nodeName == 'A') {
+
+                          for (let i = 0; i < oC.length; i++) {
+                            oC[i].classList.remove('hovers')
+                          }
+                          target.classList.add('hovers');
+                          oCityend.onclick = function (e) {
+                            var ev = e || event
+                            var target = ev.target || ev.srcElement
+                            if (target.nodeName == 'A') {
+                              var oC = document.querySelectorAll('#cityend a')
+                              if (target.nodeName == 'A') {
+                                var oC = document.querySelectorAll('#cityend a')
+                                for (let i = 0; i < oC.length; i++) {
+                                  oC[i].classList.remove('hovers')
+                                }
+                                target.classList.add('hovers');
+                                var areaId = target.getAttribute('city_id')
+                                //console.log(areaId)
+                                renderWeather(areaId);
+                                sevenWeather(areaId);
+                                oWeather(areaId);
+
+                              }
+                            }
+                          }
+                        } else {
+
+                        }
+                      }
+                    }
+                  }
+                } else { }
+              }
+            }
+          }
+        } else {
+          var oC = document.querySelectorAll('#cityend a')
+          for (let i = 0; i < oC.length; i++) {
+            oC[i].classList.remove('hovers')
+          }
+        }
+      }
+    }
+  }
+  xhr.send();
+
+  findProvince = (res) => {
+    var list = res.filter(({ city_id }) => {
+      return (city_id == 'CH01' || city_id == 'CH02' || city_id == 'CH03' || city_id == 'CH04')
+    })
+    //console.log(list)
+    var zxs = {
+      name: "直辖市",
+      city_id: 'CH98',
+      en: '',
+      list
+    }
+    var list = res.filter(({ city_id }) => {
+      return (city_id == 'CH33' || city_id == 'CH34')
+    })
+    //console.log(list)
+    var xzq = {
+      name: "特别行政区",
+      city_id: 'CH99',
+      en: '',
+      list
+    }
+
+    var provinceList = res.filter(({ city_id }) => {
+      return (!(city_id == 'CH01' || city_id == 'CH02' || city_id == 'CH03' || city_id == 'CH04' || city_id == 'CH33' || city_id == 'CH34')
+      )
+    })
+
+    provinceList.unshift(xzq);
+    provinceList.unshift(zxs);
+    //console.log(provinceList) 
+    return provinceList
+  }
+
+</script>
+
+</html>

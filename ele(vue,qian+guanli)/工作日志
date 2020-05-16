@@ -1,0 +1,54 @@
+4.1日
+目标：将后台管理的架构搭建好，完成登陆功能。axios jwt md5
+
+**************使用elementUi**************************
+官网：https://element.eleme.cn/#/zh-CN
+介绍：Element，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端（PC端）组件库
+
+1、不要去刻意记它的属性，组件名。
+2、要将组件库当中的所有组件全部玩一遍。
+使用步骤：
+    1、安装
+        cnpm install element-ui -S
+    2、引入
+        import ElementUI from 'element-ui';// 引入组件库
+        import 'element-ui/lib/theme-chalk/index.css';// 引入的组件所需要的CSS
+    3、使用
+        Vue.use(ElementUI);// 安装elementui插件。
+************md5********************************
+
+md5:是一种加密方式。是不允许被反编译的。sha1 base64
+1、下载
+    cnpm install md5 -S
+2、引入
+    const md5 = require("md5");
+3、加密
+    const passWord = md5("加密的字符");
+
+***********************************************
+1、登陆界面。
+2、管理界面。
+    ********************1、***************************
+    路由：
+        {
+            name:"login",
+            meta:{
+                isAuthorization:false
+            }
+        },
+        {
+            name:"app",
+            children:[
+                {
+                    manageShop,
+                    meta:{
+                        isAuthorization:true
+                    }
+                },
+                {
+                    manageGoods
+                }
+            ]
+        }
+    *********************2、main.js************
+    render(){return }
