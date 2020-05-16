@@ -26,14 +26,19 @@ class ProductInfo extends Component {
                 productId: this.props.match.params.productId
             }
         })
-        console.log(abc)
+       // console.log(abc.carInfo)
         const joinList = await this.$axios.get('/api/joinCar', {
             params: {
                 goodsAll: abc.carInfo,
+                name:this.state.name,
+                salesPrice:this.state.salesPrice,
+                pic:this.state.pics[0],
+                goodsId:this.props.match.params.goodsId,
+                productId:this.props.match.params.productId,
                 userName: localStorage.userName
             }
         })
-        // console.log(joinList)
+       //console.log(joinList)
         if (joinList.ok === 1) {
             let total = 0;
             joinList.carList.forEach(v => {

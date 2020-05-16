@@ -138,7 +138,7 @@ export default class Categories extends Component {
           className={categories.tab2}
         >
           <ul>
-            {this.state.discoverList.map((v) => (
+            {[]||this.state.discoverList.map((v) => (
               <li
                 key={v.id}
                 onClick={() => {

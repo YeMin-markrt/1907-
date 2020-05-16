@@ -29,6 +29,7 @@ export default {
     },
     addCarList(goodsAll){
         return async()=>{
+            //console.log(goodsAll)
             const goods = await this.$axios.get("/api/joinCar",{
                 params:{
                     goodsAll,

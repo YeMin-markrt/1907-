@@ -170,6 +170,7 @@ function mapDispatchToPros(dispatch) {
         },
         addGoods(goodsAll,e){
             e.stopPropagation()
+            console.log(goodsAll)
             dispatch(getCartList.joinGoods.call(this,goodsAll))
         },
         removeGoods(defaultGoodsId,e){

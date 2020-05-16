@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./module/db");
 const tools = require("./module/tools");
+const mongodb=require("mongodb");
+const mongoClient=mongodb.MongoClient;
 const app = express();
 app.use(bodyParser.json());
 
@@ -99,21 +101,28 @@ app.get("/ProductInfo/:id", async (req, res) => {
     })
 })
 
-/****************购物车api*****************************/
-// 加入购物车
+// /****************购物车api*****************************/
+// // 加入购物车
 app.get("/joinCar",async(req,res)=>{
-    const goodsAll =  JSON.parse(req.query.goodsAll) ;
+    const goodsAll1 = req.query.goodsAlls ;
     const userName = req.query.userName;
-    // console.log(goodsAll,userName,)
-    const goodsInfo = await db.findOne("carList",{
-        defaultGoodsId:goodsAll.defaultGoodsId,
-        id:goodsAll.id
-    });
+    const name = req.query.name;
+    const goodsId = req.query.goodsId;
+    const productId = req.query.productId;
+    const salesPrice = req.query.salesPrice;
+    const pic = req.query.pic;
+    // console.log(req.query.userName)
+    // const goodsInfo = await db.findOne("carList",{
+    //     defaultGoodsId:goodsAll.defaultGoodsId,
+    //     id:goodsAll.id
+    // });
     // console.log(goodsInfo)
-    // 曾经加入过购物车
-    if(goodsInfo){
+    // // 曾经加入过购物车
+    //console.log(goodsAll)
+    if(goodsAll1){
+        goodsAll1=JSON.parse(req.query.goodsAll)
         await db.updateOne("carList",{
-            defaultGoodsId:goodsInfo.defaultGoodsId
+            defaultGoodsId:goodsAll.defaultGoodsId
         },{
             $inc:{
                 buyNum:1
@@ -123,13 +132,13 @@ app.get("/joinCar",async(req,res)=>{
         // 第一次加入购物车
         await db.insertOne("carList",{
             userName,
-            name:goodsAll.name,
-            defaultGoodsId:goodsAll.defaultGoodsId,
-            id: goodsAll.id,
+            name:name,
+            defaultGoodsId:productId,
+            id:goodsId,
             salesPrice:{
-                value:goodsAll.salesPrice.value,
+                value:salesPrice,
             },
-            pic:goodsAll.pic,
+            pic:pic,
             buyNum:1,
             isChecked:true,
             addTime:Date.now()
@@ -150,9 +159,9 @@ app.get("/joinCar",async(req,res)=>{
     })
 
 })
-//购物车减操作
+// //购物车减操作
 app.get("/moveCar",async (req,res)=>{
-    const defaultGoodsId =  JSON.parse(req.query.defaultGoodsId) ;
+    const defaultGoodsId =  req.query.defaultGoodsId ;
     const userName = req.query.userName;
     const carInfo = await db.findOne("carList",{
         userName,
@@ -194,7 +203,7 @@ app.get('/getCar',async (req,res)=>{
     })
 })
 
-// 更新购物车当中的选中状态
+// // 更新购物车当中的选中状态
 app.get("/changeIsChecked",async (req,res)=>{
     // carId:购物车的ID, isChecked：要更改的值
     const {carId} = req.query;
@@ -216,7 +225,7 @@ app.get("/changeIsChecked",async (req,res)=>{
         carList
     })
 })
-//全选和反选
+// //全选和反选
 app.get("/changeAllIsChecked",async (req,res)=>{
     const {userName,isChecked} = req.query;
     // console.log(userName, isChecked)
@@ -245,45 +254,45 @@ app.get("/getCarList",async(req,res)=>{
         defaultGoodsId:defaultGoodsId/1,
         id:productId/1
     })
-    // console.log(carInfo)
+    //console.log(carInfo)
     res.json({
         ok:1,
         carInfo
     })
 })
-//加入收藏
+// //加入收藏
 app.post("/joinCollect",async(req,res)=>{
-    const {goodsId} = req.body;
+    // const {goodsId} = req.body;
     // console.log(goodsId)
-    const carInfo = await db.findOne("carList",{
-        defaultGoodsId:goodsId/1
-    })
-    const goodsInfo = await db.findOne("collect",{
-        goodsId
-    })
+    // const carInfo = await db.findOne("carList",{
+    //     defaultGoodsId:goodsId/1
+    // })
+    // const goodsInfo = await db.findOne("collect",{
+    //     goodsId
+    // })
     // console.log(carInfo,goodsInfo)
-    //如果收藏夹有该商品则进行删除操作
-    if(goodsInfo){
-        await db.deleteOneById("collect",goodsInfo._id);
-        res.json({
-            ok:-1,
-            msg:"取消收藏成功"
-        })
-    }else{
-        //没有收藏
-        await db.insertOne("collect",{
-            goodsId,
-            name:carInfo.name,
-            price:carInfo.salesPrice.value,
-            pic:carInfo.pic
-        })
-        res.json({
-            ok:1,
-            msg:"收藏成功"
-        })
-    }
+    // //如果收藏夹有该商品则进行删除操作
+    // if(goodsInfo){
+    //     await db.deleteOneById("collect",goodsInfo._id);
+    //     res.json({
+    //         ok:-1,
+    //         msg:"取消收藏成功"
+    //     })
+    // }else{
+    //     //没有收藏
+    //     await db.insertOne("collect",{
+    //         goodsId,
+    //         name:carInfo.name,
+    //         price:carInfo.salesPrice.value,
+    //         pic:carInfo.pic
+    //     })
+    //     res.json({
+    //         ok:1,
+    //         msg:"收藏成功"
+    //     })
+    // }
 })
-//获取收藏
+// //获取收藏
 app.get("/getCollect",async(req,res)=>{
     const collectList  = await db.find("collect");
     res.json({
