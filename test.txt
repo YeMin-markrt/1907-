@@ -1,1 +1,6 @@
 author：xfm
+command:
+git bash
+git commit
+git checkout -b branchname
+git chenckout HEAD^
